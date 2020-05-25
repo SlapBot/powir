@@ -1,20 +1,39 @@
 {
   "name": "react-app",
   "version": "0.1.0",
+  "description": "Testing App",
+  "author": "slapbot",
+  "main": "public/electron.js",
+  "build": {
+    "productName": "react-app",
+    "appId": "slapbot.me",
+    "win": {
+      "target": "portable"
+    }
+  },
+  "homepage": "./",
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "chart.js": "^2.9.3",
+    "cross-env": "^7.0.2",
+    "electron-is-dev": "^1.2.0",
     "react": "^16.13.1",
+    "react-chartjs-2": "^2.9.0",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "react-start": "set BROWSER=none && react-scripts start",
+    "react-build": "react-scripts build",
+    "react-test": "react-scripts test",
+    "react-eject": "react-scripts eject",
+    "electron-start": "set ELECTRON_START_URL=http://localhost:3000 && electron .",
+    "electron-build": "electron-builder",
+    "build": "npm run react-build && npm run electron-build",
+    "start": "concurrently \"cross-env npm run react-start\" \"wait-on http://localhost:3000 && npm run electron-start\""
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -30,5 +49,9 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "electron": "^9.0.0",
+    "electron-builder": "^22.6.1"
   }
 }

@@ -1,3 +1,8 @@
+**Note**: React and Electron were setup following this guide: 
+1. [Github](https://github.com/willjw3/react-electron/blob/master/package.json)
+2. [Youtube](https://www.youtube.com/watch?v=Cdu2O6o2DCg)
+
+---
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
