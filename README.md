@@ -2,6 +2,9 @@
 1. [Github](https://github.com/willjw3/react-electron/blob/master/package.json)
 2. [Youtube](https://www.youtube.com/watch?v=Cdu2O6o2DCg)
 
+Give credits:
+1. <a href="https://icons8.com/icon/64452/heart">Heart icon by Icons8</a>
+
 ---
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 

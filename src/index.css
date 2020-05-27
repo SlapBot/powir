@@ -27,3 +27,27 @@ h1, h2, h3, h4, h5, h6 {
 .border-bottom {
   border-bottom: 1px solid rgba(65, 64, 62, 0.20);
 }
+
+.border-top {
+  border-top: 1px solid rgba(65, 64, 62, 0.20);
+}
+
+/*noinspection CssReplaceWithShorthandSafely*/
+.custom-border {
+  border-bottom-left-radius: 225px 100px;
+  border-bottom-right-radius: 15px 225px;
+  border-top-left-radius: 255px 25px;
+  border-top-right-radius: 25px 225px;
+}
+
+.bg-blue {
+  background-color: blue;
+}
+
+.bg-red {
+  background-color: red;
+}
+
+.no-border {
+  border: none;
+}

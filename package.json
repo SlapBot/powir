@@ -18,15 +18,15 @@
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
     "chart.js": "^2.9.3",
-    "cross-env": "^7.0.2",
     "electron-is-dev": "^1.2.0",
+    "lodash": "^4.17.15",
     "react": "^16.13.1",
     "react-chartjs-2": "^2.9.0",
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1"
   },
   "scripts": {
-    "react-start": "set BROWSER=none && react-scripts start",
+    "react-start": "set BROWSER=none&&react-scripts start",
     "react-build": "react-scripts build",
     "react-test": "react-scripts test",
     "react-eject": "react-scripts eject",
