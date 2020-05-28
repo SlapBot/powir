@@ -1,6 +1,18 @@
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow, ipcMain } = require('electron')
 const path = require('path')
 const isDev  = require('electron-is-dev')
+const scraper = require("./app/scrape")
+
+
+function getBatteryReport() {
+  // .generateBatteryReport('powercfg /batteryreport')
+  return scraper.getHtmlFromFile('battery-report.html')
+      .catch(error => console.log(error))
+      .then(html => scraper.scrape(html))
+      // .then(data => scraper.writeDataToFile(JSON.stringify(data, null, 4), 'output.json'))
+}
+
+let batteryReport = getBatteryReport()
 
 function createWindow () {
   // Create the browser window.
@@ -17,10 +29,8 @@ function createWindow () {
       isDev ? "http://localhost:3000" : `file://${path.join(__dirname, '../build/index.html')}`
   )
 
-  if (isDev) {
-    // Open the DevTools.
-    win.webContents.openDevTools()
-  }
+  // Open the DevTools.
+  win.webContents.openDevTools()
 }
 
 // This method will be called when Electron has finished
@@ -47,3 +57,10 @@ app.on('activate', () => {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
+ipcMain.on('battery-report-ready', (event, data) => {
+  console.log("received battery-report-ready signal")
+  batteryReport.then(data => {
+    console.log("sending battery-report signal")
+    event.reply('battery-report', data)
+  })
+})

@@ -23,7 +23,6 @@ function Chart(props) {
                 }]
             }
         }
-        console.log(options)
         switch (type) {
             case 'batteryCapacityHistory':
             case 'batteryLifeHistory':
