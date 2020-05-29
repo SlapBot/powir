@@ -11,14 +11,14 @@ function Navbar() {
                     <div className="content-center">
                         <div className="content-center pr-2 custom-border border-right">
                             <h4>
-                                Roxy
+                                Powir
                             </h4>
                             <span className="badge ml-1" style={{
                                 fontSize: "small",
                                 marginTop: "0.3em"
                             }}>v1.0</span>
                         </div>
-                        <h5 className="content-center ml-2">Monitoring & Analyzing your battery!</h5>
+                        <h5 className="content-center ml-2">Monitoring & Analyzing Your Battery!</h5>
                     </div>
                     <div className="content-center">
                         <div className="content-center mr-1">

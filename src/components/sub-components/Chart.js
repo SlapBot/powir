@@ -1,24 +1,24 @@
-import {Line} from "react-chartjs-2";
+import {Bar, Line, Pie} from "react-chartjs-2";
 import React from "react";
 import { createData } from "./ChartData";
 
 function Chart(props) {
-    function getChart(info, type, xLabel, yLabel) {
-        let data = createData(info, type)
+    function getChart(info, type, metaData) {
+        let data = createData(info, type, metaData)
         let options = {
             scales: {
                 xAxes: [{
                     display: true,
                     scaleLabel: {
                         display: true,
-                        labelString: xLabel
+                        labelString: metaData.xLabel
                     }
                 }],
                 yAxes: [{
                     display: true,
                     scaleLabel: {
                         display: true,
-                        labelString: yLabel
+                        labelString: metaData.yLabel
                     }
                 }]
             }
@@ -27,20 +27,31 @@ function Chart(props) {
             case 'batteryCapacityHistory':
             case 'batteryLifeHistory':
                 return <Line data={data} options={options}/>
+            case 'powerUsageInfo':
+                if (metaData.type === 'cumulativePie') {
+                    return <Pie data={data} />
+                }
+                else if (metaData.type === 'dailyBar') {
+                    return <Bar data={data} options={options}/>
+                }
+                else if (metaData.type === 'dailyLine') {
+                    return <Line data={data} options={options} />
+                }
+                return <Pie data={data} />
             default:
                 return <Line data={data} options={options}/>
         }
     }
 
     return (
-        <div className="border border-primary">
+        <div>
             <div className="content-center">
                 <div>
                     <h3>{props.heading}</h3>
                     <span className="text-xs content-center">{props.info.note}</span>
                 </div>
             </div>
-            {getChart(props.info, props.info.name, props.xLabel, props.yLabel)}
+            {getChart(props.info, props.info.name, props.metaData)}
         </div>
     )
 }

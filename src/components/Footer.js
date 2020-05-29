@@ -2,7 +2,7 @@ import React from "react";
 
 function Footer() {
     return (
-        <div className="content-center custom-border border-top border-bottom">
+        <div className="content-center custom-border border-top">
             <h3>Made With</h3>
             <img src="https://img.icons8.com/cotton/64/000000/like--v1.png" alt="heart" style={{
                 border: "none"

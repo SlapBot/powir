@@ -5,11 +5,14 @@ const scraper = require("./app/scrape")
 
 
 function getBatteryReport() {
-  // .generateBatteryReport('powercfg /batteryreport')
+  // return scraper.generateBatteryReport('powercfg /batteryreport')
+  //     .then(_ => scraper.getHtmlFromFile('battery-report.html'))
+  //     .catch(error => console.log(error))
+  //     .then(html => scraper.scrape(html))
+
   return scraper.getHtmlFromFile('battery-report.html')
       .catch(error => console.log(error))
       .then(html => scraper.scrape(html))
-      // .then(data => scraper.writeDataToFile(JSON.stringify(data, null, 4), 'output.json'))
 }
 
 let batteryReport = getBatteryReport()
@@ -60,6 +63,7 @@ app.on('activate', () => {
 ipcMain.on('battery-report-ready', (event, data) => {
   console.log("received battery-report-ready signal")
   batteryReport.then(data => {
+    // scraper.writeDataToFile(JSON.stringify(data, null, 4), 'output.json')
     console.log("sending battery-report signal")
     event.reply('battery-report', data)
   })

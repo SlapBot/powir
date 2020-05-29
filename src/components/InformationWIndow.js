@@ -5,7 +5,7 @@ import CurrentBatteryEstimate from "./sub-components/CurrentBatteryEstimate";
 import RecentBatteryEstimate from "./sub-components/RecentBatteryEstimate";
 const { ipcRenderer } = window.require('electron')
 
-function ContentWindow() {
+function InformationWindow() {
     function shouldRenderComponent(component) {
         return dataFetchStatus ? component : "Loading..."
     }
@@ -174,4 +174,4 @@ function ContentWindow() {
     )
 }
 
-export default ContentWindow
+export default InformationWindow

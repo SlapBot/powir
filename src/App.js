@@ -22,7 +22,6 @@ function App() {
                 </div>
             </div>
             <Footer />
-            <hr/>
         </div>
     );
 }

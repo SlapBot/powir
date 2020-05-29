@@ -1,11 +1,22 @@
 import {groupBy, meanBy, sortBy} from 'lodash'
 
-function createData(info, type) {
+function createData(info, type, metaData) {
     switch (type) {
         case 'batteryCapacityHistory':
             return createBatteryCapacityData(info)
         case 'batteryLifeHistory':
             return createBatteryLifeHistoryData(info)
+        case 'powerUsageInfo':
+            if (metaData.type === 'cumulativePie') {
+                return createCumulativePiePowerUsageInfoData(info)
+            }
+            else if (metaData.type === 'dailyBar') {
+                return createBarPowerUsageInfoData(info)
+            }
+            else if (metaData.type === 'dailyLine') {
+                return createLinePowerUsageInfoData(info)
+            }
+            return createActiveSuspendedPiePowerUsageInfoData(info)
         default:
             return {
                 labels: [0, 1],
@@ -138,6 +149,189 @@ function createBatteryLifeHistoryData(info) {
     }
 }
 
+function getGroupedPowerUsageInfoData(info, filterConditional) {
+    let formattedData = info.data.reduce((data, item, index) => {
+        function getDuration(past, current, future) {
+            function getMidnightDateTime(date) {
+                return new Date(date.toUTCString()).setHours(0, 0, 0, 0)
+            }
+            if (past.getDate() === current.getDate()) {
+                if (future.getDate() === current.getDate()) {
+                    return (future - current) / 1000 / 60
+                }
+                return (getMidnightDateTime(future) - current) / 1000 / 60
+            }
+            return (current - getMidnightDateTime(current)) / 1000 / 60
+        }
+        if (filterConditional(item)) {
+            return data
+        }
+        let [date, time] = item[0].split(" ")
+        switch (index) {
+            case info.data.length-1:
+                return data
+            case 0:
+                data.push([date, time,
+                    (new Date(info.data[index+1][0]) - new Date(item[0])) / 1000 / 60,
+                    item[1], item[2], item[3], item[4]])
+                return data
+            default:
+                let duration = getDuration(new Date(info.data[index-1][0]), new Date(item[0]), new Date(info.data[index+1][0]))
+                data.push([date, time, duration, item[1], item[2], item[3], item[4]])
+                return data
+        }
+    }, [])
+    return groupBy(formattedData, 0)
+}
+
+function getDailySumGroupedPowerUsageInfoData(groupData, filterConditional) {
+    let powerUsageDataset = []
+    for (let [, value] of Object.entries(groupData)) {
+        powerUsageDataset.push(value.reduce((data, item) => {
+            if (filterConditional(item)) {
+                data[0] += item[2]
+            }
+            else {
+                data[1] += item[2]
+            }
+            return data
+        }, [0, 0]))
+    }
+    return powerUsageDataset
+}
+
+function formatPowerUsageInfoTime(minutes) {
+    if (minutes > 59) {
+        return Math.floor(minutes / 60) + ' Hr ' + Math.floor(minutes % 60) + ' Minutes'
+    }
+    return Math.floor(minutes) + ' Minutes'
+}
+
+function createCumulativePiePowerUsageInfoData(info) {
+    let groupData = getGroupedPowerUsageInfoData(info, function (item) {
+        return item[1].toLowerCase() === 'suspended'
+    })
+    let powerUsageDataset = getDailySumGroupedPowerUsageInfoData(groupData, function (item) {
+        return item[4].toUpperCase() === 'AC'
+    })
+    let cumulativePowerUsageDataset = powerUsageDataset.reduce((data, item) => {
+        data[0] += Math.floor(item[0])
+        data[1] += Math.floor(item[1])
+        return data
+    }, [0, 0])
+
+    return {
+        labels: [
+            'AC: ' + formatPowerUsageInfoTime(cumulativePowerUsageDataset[0]),
+            'Battery: ' + formatPowerUsageInfoTime(cumulativePowerUsageDataset[1])
+        ],
+        datasets: [{
+            labelString: 'AC vs Battery',
+            backgroundColor: ['green', 'orange'],
+            data: cumulativePowerUsageDataset,
+            fill: false,
+        }]
+    }
+}
+
+function createBarPowerUsageInfoData(info) {
+    let groupData = getGroupedPowerUsageInfoData(info, function (item) {
+        return item[1].toLowerCase() === 'suspended'
+    })
+    let powerUsageDataset = getDailySumGroupedPowerUsageInfoData(groupData, function (item) {
+        return item[4].toUpperCase() === 'AC'
+    })
+    let groupActiveSuspendedData = getGroupedPowerUsageInfoData(info, function(_) {
+        return false
+    })
+    let powerUsageActiveSuspendedDataset = getDailySumGroupedPowerUsageInfoData(
+        groupActiveSuspendedData,
+        function (item) {
+            return item[3].toLowerCase() === 'active'
+        })
+
+    return {
+        labels: Object.keys(groupData),
+        datasets: [{
+            label: 'AC',
+            backgroundColor: 'green',
+            borderColor: 'green',
+            borderWidth: 1,
+            data: powerUsageDataset.map(item => Math.round((item[0] / 60) * 10) / 10),
+        },{
+            label: 'Battery',
+            backgroundColor: 'orange',
+            borderColor: 'orange',
+            borderWidth: 1,
+            data: powerUsageDataset.map(item => Math.round((item[1] / 60) * 10) / 10),
+        },{
+            label: 'ON',
+            backgroundColor: 'blue',
+            borderColor: 'blue',
+            borderWidth: 1,
+            data: powerUsageActiveSuspendedDataset.map(item => Math.round((item[0] / 60) * 10) / 10),
+        },{
+            label: 'OFF',
+            backgroundColor: 'red',
+            borderColor: 'red',
+            borderWidth: 1,
+            data: powerUsageActiveSuspendedDataset.map(item => Math.round((item[1] / 60) * 10) / 10),
+        }]
+    }
+}
+
+function createActiveSuspendedPiePowerUsageInfoData(info) {
+    let groupData = getGroupedPowerUsageInfoData(info, function(_) {
+        return false
+    })
+    let powerUsageDataset = getDailySumGroupedPowerUsageInfoData(groupData, function (item) {
+        return item[3].toLowerCase() === 'active'
+    })
+    let cumulativePowerUsageDataset = powerUsageDataset.reduce((data, item) => {
+        data[0] += Math.floor(item[0])
+        data[1] += Math.floor(item[1])
+        return data
+    }, [0, 0])
+
+    return {
+        labels: [
+            'ON ' + formatPowerUsageInfoTime(cumulativePowerUsageDataset[0]),
+            'OFF ' + formatPowerUsageInfoTime(cumulativePowerUsageDataset[1])
+        ],
+        datasets: [{
+            label: 'AC vs Battery',
+            backgroundColor: ['blue', 'red'],
+            data: cumulativePowerUsageDataset,
+            fill: false,
+        }]
+    }
+}
+
+function createLinePowerUsageInfoData(info) {
+    let percentageDataset = info.data.reduce((data, item, index) => {
+        let dateString = (date) => date.getMonth()+1 + "/" + date.getDate() + " " + date.getHours() + ":" + date.getMinutes()
+        if (index > 0) {
+            if (item[item.length-2] === info.data[index-1][info.data[index-1].length-2]) {
+                return data
+            }
+        }
+        data.push({
+            x: dateString(new Date(item[0])),
+            y: item[item.length-2].split(" ")[0]
+        })
+        return data
+    }, [])
+    return {
+        labels: percentageDataset.map(item => item.x),
+        datasets: [{
+            label: 'Battery Percentage',
+            backgroundColor: 'red',
+            borderColor: 'red',
+            data: percentageDataset,
+            fill: false
+        }]
+    }
+}
 export {
     createData
 }

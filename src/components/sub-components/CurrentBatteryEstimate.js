@@ -7,7 +7,7 @@ function CurrentBatteryEstimate(props) {
         }).join(" ")
     }
     return (
-        <div className="pb-2 border-bottom">
+        <div className="pb-4 border-bottom">
             <div className="pb-2">
                 <h4>{props.info.data[0][0]}</h4>
                 <span className="text-xs">
