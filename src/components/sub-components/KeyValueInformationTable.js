@@ -2,16 +2,28 @@ import React from "react";
 
 function KeyValueInformationTable(props) {
     function renderInfo(element, index, type) {
+        const extraHelp = [
+            {
+                'popoverHelp': "Amount of charge battery was designed to hold.",
+                'spanClass': 'badge bg-blue text-lg'
+            },{
+                'popoverHelp': "Amount of charge battery can currently hold.",
+                'spanClass': 'badge bg-red text-lg'
+            },
+        ]
         switch (type) {
             case "batteryInfo":
                 switch (index) {
                     case 4:
+                    case 5:
                         return <div className="flex">
                             <div>
-                                <span className="badge bg-blue text-lg">{element}</span>
+                                <span className={index === 4 ? extraHelp[0].spanClass : extraHelp[1].spanClass}>
+                                    {element}
+                                </span>
                             </div>
                             <div className="content-center ml-1">
-                                <div popover-top="Popover on top" style={{
+                                <div popover-right={index === 4 ? extraHelp[0].popoverHelp : extraHelp[1].popoverHelp} style={{
                                     margin: "0"
                                 }}>
                                     <img className="no-border"
@@ -40,7 +52,10 @@ function KeyValueInformationTable(props) {
 
     return (
         <div>
-            <h3>{props.heading}</h3>
+            <div className='flex'>
+                <img className='no-border mr-1' src={props.iconUrl}/>
+                <h3>{props.heading}</h3>
+            </div>
             <span className="text-xs">{props.info.note}</span>
             <table>
                 <thead>

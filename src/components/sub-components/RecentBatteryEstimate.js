@@ -16,7 +16,6 @@ function RecentBatteryEstimate(props) {
             return data
         }
         let estimateLife = (durationMinutes * 100) / percent
-        console.log(estimateLife)
         if (estimateLife < data.minimum) {
             data.minimum = estimateLife
         }
@@ -33,11 +32,10 @@ function RecentBatteryEstimate(props) {
         count: 0
     })
 
-    console.log(props.info.data)
     return (
         <div className="pb-4 border-bottom">
             <div className="pb-2">
-                <h4>Recent Battery Estimate</h4>
+                <h4>Recent Battery Life Estimate</h4>
                 <span className="text-xs">
                     {props.info.note}
                 </span>

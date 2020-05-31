@@ -1,7 +1,8 @@
-const { app, BrowserWindow, ipcMain } = require('electron')
+const { app, BrowserWindow, ipcMain, dialog, Menu } = require('electron')
 const path = require('path')
 const isDev  = require('electron-is-dev')
 const scraper = require("./app/scrape")
+// const { template } = require("./app/menu")
 
 
 function getBatteryReport() {
@@ -25,8 +26,11 @@ function createWindow () {
     webPreferences: {
       nodeIntegration: true
     },
+    show: false
   })
 
+  win.maximize()
+  win.show()
   // and load the index.html of the app.
   win.loadURL(
       isDev ? "http://localhost:3000" : `file://${path.join(__dirname, '../build/index.html')}`
@@ -35,6 +39,11 @@ function createWindow () {
   // Open the DevTools.
   win.webContents.openDevTools()
 }
+
+
+// const menu = Menu.buildFromTemplate(template)
+// Menu.setApplicationMenu(menu)
+
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
@@ -63,8 +72,60 @@ app.on('activate', () => {
 ipcMain.on('battery-report-ready', (event, data) => {
   console.log("received battery-report-ready signal")
   batteryReport.then(data => {
-    // scraper.writeDataToFile(JSON.stringify(data, null, 4), 'output.json')
     console.log("sending battery-report signal")
     event.reply('battery-report', data)
   })
+})
+
+ipcMain.on('show-original-report', (event, data) => {
+  const win = new BrowserWindow({
+    width: 800,
+    height: 600,
+  })
+  win.loadURL(`file://${__dirname}/../battery-report.html`)
+})
+
+ipcMain.on('export-JSON-data', (event, data) => {
+  let options = {
+    title: "Export Data: JSON format",
+    defaultPath : __dirname + '/powir-data.json',
+    buttonLabel : "Save JSON",
+    filters :[
+      {name: 'JSON', extensions: ['json']},
+      {name: 'All Files', extensions: ['*']}
+    ]
+  }
+  dialog.showSaveDialog(null, options).then(result => {
+    batteryReport.then(data => scraper.writeDataToFile(JSON.stringify(data, null, 4), result.filePath))
+        .then(_ => console.log('JSON saved!'))
+  })
+})
+
+ipcMain.on('export-PDF-report', (event, data) => {
+  function pdfSettings() {
+    return {
+      landscape: false,
+      marginsType: 0,
+      printBackground: false,
+      printSelectionOnly: false,
+      pageSize: 'A4',
+      scaleFactor: 100
+    };
+  }
+
+  let currentWindow = BrowserWindow.getAllWindows().filter(window => window.isVisible())[0]
+  let options = {
+    title: "Export Report: PDF format",
+    defaultPath : __dirname + '/powir-report.pdf',
+    buttonLabel : "Save PDF",
+    filters :[
+      {name: 'PDF', extensions: ['pdf']},
+      {name: 'All Files', extensions: ['*']}
+    ]
+  }
+  currentWindow.webContents.printToPDF(pdfSettings()).then(data => {
+    dialog.showSaveDialog(null, options).then(result => {
+      scraper.writeDataToFile(data, result.filePath).then(_ => console.log('PDF saved!'))
+    }).catch(err => console.log(err))
+  }).catch(err => console.log(err))
 })

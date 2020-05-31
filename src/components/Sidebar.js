@@ -1,34 +1,62 @@
-import React from "react";
+import React, {useState} from "react";
+import SidebarRow from "./SidebarRow";
 
-function Sidebar() {
+function Sidebar(props) {
+    const [sidebarRows, setSideBarRows] = useState([
+        {
+            'index': 0,
+            'name': 'Information',
+            'rootClass': 'mt-6',
+            'liClass': 'mb-3',
+            'spanClass': 'border border-primary p-1'
+        },{
+            'index': 1,
+            'name': 'About',
+            'rootClass': '',
+            'liClass': '',
+            'spanClass': ''
+        },{
+            'index': 2,
+            'name': 'Actions',
+            'rootClass': '',
+            'liClass': '',
+            'spanClass': ''
+        },{
+            'index': 3,
+            'name': 'Links',
+            'rootClass': '',
+            'liClass': '',
+            'spanClass': ''
+        }
+    ])
+    function notifyBody(sidebarIndex) {
+        setSideBarRows(sidebarRows.map((item, index) => {
+            if (index === sidebarIndex) {
+                return {...item, liClass: 'mt-3 mb-3', spanClass: 'border border-primary p-1'}
+            }
+            return {...item, liClass: '', spanClass: ''}
+        }))
+        props.notifyContentWindow(sidebarIndex)
+    }
+
     return (
         <div className="fixed">
             <ul>
-                {/* TODO: create a utility css to add border on current page by extending scss */}
-                <div className="mt-6 mb-1">
-                    <li className="mb-3"><span className="border border-primary p-1">Information</span></li>
-                </div>
-                <div className="mb-1">
-                    <li>
-                        <span>About</span>
-                    </li>
-                </div>
-                <div className="mb-1">
-                    <li>
-                        <span>Links</span>
-                    </li>
-                </div>
-                <div className="mb-1">
-                    <li>
-                        <span>Help</span>
-                    </li>
-                </div>
-                <div className="mb-1">
-                    <li>
-                        <span>Credits</span>
-                    </li>
-                </div>
+                {sidebarRows.map(
+                    item => <SidebarRow key={item.index} value={item} notifyBody={notifyBody}/>
+                )}
             </ul>
+            <div className="border-top mt-8 pt-8">
+                <p>Made With</p>
+                <img src="https://img.icons8.com/cotton/64/000000/like--v1.png" alt="heart" style={{
+                    border: "none"
+                }}/>
+                <p>By <a href="https://slapbot.me">Slapbot</a></p>
+                <p className="text-xs mt-48" style={{
+                    marginLeft: ".2rem",
+                    fontSize: ".5rem"
+                }}>100 % open source</p>
+            </div>
         </div>
     )
 }

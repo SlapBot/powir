@@ -41,15 +41,16 @@ function InformationWindow() {
     return (
         <div>
             <div className="flex flex-wrap border-bottom mt-3 pb-3">
-                <div className="w-full md:w-full lg:w-1/2">
+                <div className="w-full lg:w-1/2">
                     { shouldRenderComponent(
                         <KeyValueInformationTable
                             info={batteryInfo}
                             heading={"Battery Information"}
+                            iconUrl={"https://img.icons8.com/doodle/48/000000/high-battery.png"}
                         />
                     )}
                 </div>
-                <div className="w-full md:w-full lg:w-1/2">
+                <div className="w-full lg:w-1/2">
                     <div className="border border-primary">
                         { shouldRenderComponent(
                             <Chart
@@ -65,15 +66,16 @@ function InformationWindow() {
                 </div>
             </div>
             <div className="flex flex-wrap border-bottom mt-3 pb-3">
-                <div className="w-full md:w-full lg:w-1/2">
+                <div className="w-full lg:w-1/2">
                     { shouldRenderComponent(
                         <KeyValueInformationTable
                             info={systemInfo}
                             heading={"System Information"}
+                            iconUrl={"https://img.icons8.com/doodle/48/000000/windows8.png"}
                         />
                     )}
                 </div>
-                <div className="w-full md:w-full lg:w-1/2">
+                <div className="w-full lg:w-1/2">
                     <div className="flex flex-wrap">
                         <div className="w-full mb-3">
                             { shouldRenderComponent(
@@ -99,9 +101,13 @@ function InformationWindow() {
             </div>
             <div className="flex flex-wrap mt-3 pb-3">
                 <div className="w-full flex flex-wrap pb-2">
-                    <div className="w-1/2">
+                    <div className="w-full lg:w-1/2">
                         <div className="w-full">
-                            <h3>Recent Power & Battery Usage Information</h3>
+                            <div className="flex">
+                                <img className='no-border mr-1' src="https://img.icons8.com/doodle/48/000000/lightning-arrow.png"/>
+                                <h3>Recent Power & Battery Usage</h3>
+                            </div>
+                            <span className='text-xs'>Observed power and battery states of the system in the recent time period.</span>
                         </div>
                         <div className="flex flex-wrap">
                             <div className="w-full mt-4 mr-2">
@@ -145,7 +151,7 @@ function InformationWindow() {
                             </div>
                         </div>
                     </div>
-                    <div className="w-1/2">
+                    <div className="w-full lg:w-1/2">
                         <div className="flex flex-wrap">
                             <div className="w-full mb-3">
                                 { shouldRenderComponent(

@@ -29,6 +29,17 @@ function getHtmlFromFile(path) {
     })
 }
 
+function readDataFromFile(path) {
+    return new Promise((resolve, reject) => {
+        readFile(path, 'utf-8', (err, data) => {
+            if (data) {
+                resolve(JSON.parse(data))
+            }
+            reject(err)
+        })
+    })
+}
+
 function writeDataToFile(data, path) {
     return new Promise((resolve, reject) => {
         writeFile(path, data, (err) => {
@@ -216,5 +227,6 @@ module.exports = {
     generateBatteryReport,
     getHtmlFromFile,
     scrape,
+    readDataFromFile,
     writeDataToFile
 }

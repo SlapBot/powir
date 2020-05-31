@@ -1,0 +1,107 @@
+import React from "react";
+
+function LinksWindow() {
+    let shareLinks = [
+        {
+            'text': 'Copy Link!',
+            'iconUrl': 'https://img.icons8.com/doodle/48/000000/link.png',
+            'url': 'https://powir.slapbot.me'
+        },{
+            'text': 'Tweet about it!',
+            'iconUrl': 'https://img.icons8.com/doodle/48/000000/twitter-circled.png',
+            'url': 'https://twitter.com/intent/tweet?url=powir.slapbot.me&text=Check%20out%20this%20open%20source%20windows%20battery%20monitoring%20app:&hashtags=powir'
+        },{
+            'text': 'Share on Facebook!',
+            'iconUrl': 'https://img.icons8.com/doodle/48/000000/facebook.png',
+            'url': 'http://www.facebook.com/sharer.php?s=100&p[title]=Powir&p[url]=powir.slapbot.me'
+        },{
+            'text': 'Mail to someone!',
+            'iconUrl': 'https://img.icons8.com/doodle/48/000000/email-sign.png',
+            'url': 'mailto:?subject=Powir: open source windows based battery monitoring app&amp;body=Check out app at: https://www.powir.slapbot.me'
+        },{
+            'text': 'Share on Linkedin!',
+            'iconUrl': 'https://img.icons8.com/doodle/48/000000/linkedin-circled.png',
+            'url': 'https://www.linkedin.com/sharing/share-offsite/?url=powir.slapbot.me'
+        },{
+            'text': 'Share on Reddit!',
+            'iconUrl': 'https://img.icons8.com/doodle/48/000000/reddit.png',
+            'url': 'https://www.reddit.com/submit?url=https://powir.slapbot.me&title=Powir:%20Open%20Source%20Windows%20Based%20Battery%20Monitoring%20App'
+        },
+    ]
+    let helpLinks = [
+        {
+            'heading': 'Issues/Bugs',
+            'iconUrl': 'https://img.icons8.com/doodle/48/000000/repository.png',
+            'url': 'https://github.com/slapbot/powir/issues',
+            'message': 'Looking for any help related to the product or want to report a bug? Feel free to raise an issue on Github'
+        },{
+            'heading': 'Chat/Updates',
+            'iconUrl': 'https://img.icons8.com/doodle/48/000000/comments.png',
+            'url': 'https://twitter.com/ugupta41',
+            'message': 'Want to share some insight without signing up on Github or looking for updates? Follow me @ugupta41 on Twitter'
+        },{
+            'heading': 'Feedback/Enquiry',
+            'iconUrl': 'https://img.icons8.com/doodle/48/000000/mail-contact.png',
+            'url': 'https://twitter.com/ugupta41',
+            'message': 'Old school? Write me a mail at: ugupta41@gmail.com'
+        },
+    ]
+    return (
+        <div>
+            <div className="flex flex-wrap border-bottom mt-3 pb-3">
+                <div className="w-full">
+                    <div className='border-bottom pb-2'>
+                        <div className='mt-2 mb-4'>
+                            <div className="flex">
+                                <img className='no-border mr-2' src="https://img.icons8.com/doodle/48/000000/help.png"/>
+                                <h3>Help</h3>
+                            </div>
+                            <div>
+                                <span>Looking for any kind of help?</span>
+                            </div>
+                        </div>
+                        {helpLinks.map(shareLink => {
+                            return <div>
+                                <div className='flex mt-2'>
+                                    <div className='content-center'>
+                                        <img className='no-border mr-2' src={shareLink.iconUrl}/>
+                                        <h4><a href={shareLink.url}>
+                                            {shareLink.heading}
+                                        </a></h4>
+                                    </div>
+                                </div>
+                                <span className='mt-1'>{shareLink.message}</span>
+                            </div>
+                        })}
+
+                    </div>
+                    <div className='pb-2'>
+                        <div>
+                            <div className='mt-2 mb-4'>
+                                <div className="flex">
+                                    <img className='no-border mr-2' src="https://img.icons8.com/doodle/48/000000/share--v1.png"/>
+                                    <h3>Share</h3>
+                                </div>
+                                <div>
+                                    <span>Liked the product? Share the good word among your friends :)</span>
+                                </div>
+                            </div>
+                        </div>
+                        {shareLinks.map(shareLink => {
+                            return <div className='flex mt-2'>
+                                <div className='content-center'>
+                                    <img className='no-border mr-2' src={shareLink.iconUrl}/>
+                                    <h4><a href={shareLink.url}>
+                                        {shareLink.text}
+                                    </a></h4>
+                                </div>
+                            </div>
+                        })}
+                    </div>
+                </div>
+            </div>
+        </div>
+    )
+}
+
+export default LinksWindow
