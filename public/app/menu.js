@@ -1,75 +1,91 @@
-const { ipcMain } = require('electron')
-
-const template = [
-    // { role: 'fileMenu' }
-    {
-        label: 'File',
-        submenu: [
-            { role: 'quit' }
-        ]
-    },
-    // { role: 'editMenu' }
-    {
-        label: 'Edit',
-        submenu: [
-            {
-                label: 'Export JSON',
-                click: async (channel, listener) => {
-                    ipcMain.once('export-JSON-data', listener)
+function getMenuTemplate(server) {
+    return [
+        // { role: 'fileMenu' }
+        {
+            label: 'File',
+            submenu: [
+                {
+                    label: 'Main Website',
+                    click: async () => {
+                        await server.openLink('https://powir.slapbot.me')
+                    }
+                },{
+                    label: 'Author',
+                    click: async () => {
+                        server.showAuthorPage()
+                    }
+                },
+                { type: 'separator' },
+                { role: 'quit' }
+            ]
+        },
+        // { role: 'editMenu' }
+        {
+            label: 'Actions',
+            submenu: [
+                {
+                    label: 'Export JSON',
+                    click: async () => {
+                        server.exportJSONData()
+                    }
+                },
+                {
+                    label: 'Export PDF',
+                    click: async () => {
+                        server.exportPDFReport()
+                    }
+                },
+                { type: 'separator' },
+                {
+                    label: 'Display Original Report',
+                    click: async () => {
+                        server.showOriginalReport()
+                    }
+                },
+            ]
+        },
+        {
+            label: 'View',
+            submenu: [
+                { role: 'resetzoom' },
+                { role: 'zoomin' },
+                { role: 'zoomout' },
+                { type: 'separator' },
+                { role: 'togglefullscreen' }
+            ]
+        },
+        {
+            label: 'Tools',
+            submenu: [
+                { role: 'reload' },
+                { role: 'forcereload' },
+                { role: 'toggledevtools' },
+            ]
+        },
+        {
+            role: 'help',
+            submenu: [
+                {
+                    label: 'Issues/Bugs',
+                    click: async () => {
+                        await server.openLink('https://github.com/slapbot/powir/issues')
+                    }
+                },{
+                    label: 'Chat/Updates',
+                    click: async () => {
+                        await server.openLink('https://twitter.com/ugupta41')
+                    }
+                },{
+                    label: 'Feedback/Enquiry',
+                    click: async () => {
+                        await server.openLink('https://slapbot.me')
+                    }
                 }
-            },
-            {
-                label: 'Export PDF',
-                click: async (channel, listener) => {
-                    ipcMain.once('export-pdf-report', listener)
-                }
-            },
-            { type: 'separator' },
-            {
-                label: 'Display Original Report',
-                click: async (channel, listener) => {
-                    ipcMain.once('show-original-report', listener)
-                }
-            },
-        ]
-    },
-    // { role: 'viewMenu' }
-    {
-        label: 'View',
-        submenu: [
-            { role: 'reload' },
-            { role: 'forcereload' },
-            { role: 'toggledevtools' },
-            { type: 'separator' },
-            { role: 'resetzoom' },
-            { role: 'zoomin' },
-            { role: 'zoomout' },
-            { type: 'separator' },
-            { role: 'togglefullscreen' }
-        ]
-    },
-    // { role: 'windowMenu' }
-    {
-        label: 'Window',
-        submenu: [
-            { role: 'minimize' },
-            { role: 'zoom' },
-        ]
-    },
-    {
-        role: 'help',
-        submenu: [
-            {
-                label: 'Learn More',
-                click: async () => {
-                    const { shell } = require('electron')
-                    await shell.openExternal('https://electronjs.org')
-                }
-            }
-        ]
-    }
-]
+            ]
+        }
+    ]
+}
 
 module.exports = {
-    template
+    getMenuTemplate
 }

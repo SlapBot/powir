@@ -26,7 +26,7 @@ function RecentBatteryEstimate(props) {
         data.count += 1
         return data
     }, {
-        minimum: 99999999,
+        minimum: 9999999999,
         maximum: 0,
         sum: 0,
         count: 0

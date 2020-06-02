@@ -1,4 +1,5 @@
 import React from "react";
+import openExternalLink from "./openExternalLink";
 
 function Footer() {
     return (
@@ -9,11 +10,18 @@ function Footer() {
                 <div>
                     <div className="flex">
                         <img className='no-border mr-2' src="https://img.icons8.com/cotton/24/000000/copyright.png" alt="heart"/>
-                        <h5><a href="https://slapbot.me">Ujjwal Gupta (Slapbot)</a></h5>
+                        <button
+                            className="clean-button"
+                            onClick={() => openExternalLink("https://slapbot.me")}>
+                            Ujjwal Gupta (Slapbot)
+                        </button>
                     </div>
                 </div>
                 <div>
-                    <a href="https://icons8.com/">Many thanks to Icons8 for all of the lovely icons</a>
+                    <button
+                        className='clean-button' onClick={() => openExternalLink("https://icons8.com/")}>
+                        Many thanks to Icons8 for all of the lovely icons
+                    </button>
                 </div>
             </div>
         </div>

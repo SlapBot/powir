@@ -1,41 +1,53 @@
 import React from "react";
+import openExternalLink from "./openExternalLink";
 
 function AboutWindow() {
     let features = [
         {
+            'id': 0,
             'text': 'Provides you with a simple and clean UI to list your battery and system information.',
             'icon': 'https://img.icons8.com/doodle/48/000000/picture.png'
         },{
+            'id': 1,
             'text': 'Shows you the change in battery capacity since the OS was installed.',
             'icon': 'https://img.icons8.com/doodle/48/000000/high-battery.png'
         },{
+            'id': 2,
             'text': 'Analyzes the current and overall estimated battery life of your system.',
             'icon': 'https://img.icons8.com/doodle/48/000000/hourglass--v1.png'
         },{
+            'id': 3,
             'text': 'Computes various statistics to give a better understanding of your power usage.',
             'icon': 'https://img.icons8.com/doodle/48/000000/statistics--v1.png'
         },{
+            'id': 4,
             'text': 'Ability to export all of the data via various formats: PDF (app), JSON (processed), HTML (original report).',
             'icon': 'https://img.icons8.com/doodle/48/000000/rescan-document.png'
         },{
+            'id': 5,
             'text': '100% free and completely open-source for absolute transparency.',
             'icon': 'https://img.icons8.com/doodle/48/000000/console--v2.png'
         },{
+            'id': 6,
             'text': 'Completely portable app with no installation required, ready to use out of the box.',
             'icon': 'https://img.icons8.com/doodle/48/000000/audio-cable.png'
         }
     ]
     let reasons = [
         {
+            'id': 0,
             'text': 'Complete lack of any such power/battery monitoring analyzing tool available in the market.',
             'icon': 'https://img.icons8.com/doodle/48/000000/error.png'
         },{
+            'id': 1,
             'text': 'Obscure documentation over how to find battery statuses on the Internet.',
             'icon': 'https://img.icons8.com/doodle/48/000000/delete-sign.png'
         },{
+            'id': 2,
             'text': 'Required to use terminal in order to run a command showing information about the system.',
             'icon': 'https://img.icons8.com/doodle/48/000000/iphone-spinner.png'
         },{
+            'id': 3,
             'text': 'Devoid of any simple and understandable metrics from the underlying API or report.',
             'icon': 'https://img.icons8.com/doodle/48/000000/api.png'
         },
@@ -65,10 +77,16 @@ function AboutWindow() {
                                     <h3>Who build it?</h3>
                                 </div>
                                 <div className="p-3">
-                                    <p>Hey there! I'm <a href="#">Ujjwal</a> who goes around with the name Slapbot in open source communities,
-                                        You'd often find me blabbering my completely biased opinions in /r/soccer or busy building new things.</p>
-                                    <p className='mt-1'>I'm most accessible via Twitter and tend to update about whatever I'm working there, so feel free to follow or
-                                        send a dm there. :) </p>
+                                    <p>Hey there! I'm
+                                        <button
+                                            className='clean-button ml-1 underline'
+                                            onClick={() => openExternalLink('https://twitter.com/ugupta41')}>
+                                            Ujjwal
+                                        </button> who goes around with the name Slapbot in open source communities,
+                                        You'd often find me blabbering my completely biased opinions in /r/soccer
+                                        or busy building new things.</p>
+                                    <p className='mt-1'>I'm most accessible via Twitter and tend to update about whatever
+                                        I'm working there, so feel free to follow or send a dm there. :) </p>
                                 </div>
 
                             </div>
@@ -84,7 +102,7 @@ function AboutWindow() {
                                 <div className="p-1 mt-2">
                                     <ol>
                                         {features.map(item => {
-                                            return <li className="mb-1 flex">
+                                            return <li key={item.id} className="mb-1 flex">
                                                 <div className='content-center'>
                                                     <img className="no-border mr-1" src={item.icon}/>
                                                     <p>{item.text}</p>
@@ -104,7 +122,7 @@ function AboutWindow() {
                                 <div className="p-1 mt-2">
                                     <ol>
                                         {reasons.map(item => {
-                                            return <li className="mb-1 flex">
+                                            return <li key={item.id} className="mb-1 flex">
                                                 <div className='content-center'>
                                                     <img className="no-border mr-1" src={item.icon}/>
                                                     <p>{item.text}</p>

@@ -1,28 +1,35 @@
 import React from "react";
+import openExternalLink from './openExternalLink'
 
 function LinksWindow() {
     let shareLinks = [
         {
+            'id': 0,
             'text': 'Copy Link!',
             'iconUrl': 'https://img.icons8.com/doodle/48/000000/link.png',
             'url': 'https://powir.slapbot.me'
         },{
+            'id': 1,
             'text': 'Tweet about it!',
             'iconUrl': 'https://img.icons8.com/doodle/48/000000/twitter-circled.png',
             'url': 'https://twitter.com/intent/tweet?url=powir.slapbot.me&text=Check%20out%20this%20open%20source%20windows%20battery%20monitoring%20app:&hashtags=powir'
         },{
+            'id': 2,
             'text': 'Share on Facebook!',
             'iconUrl': 'https://img.icons8.com/doodle/48/000000/facebook.png',
             'url': 'http://www.facebook.com/sharer.php?s=100&p[title]=Powir&p[url]=powir.slapbot.me'
         },{
+            'id': 3,
             'text': 'Mail to someone!',
             'iconUrl': 'https://img.icons8.com/doodle/48/000000/email-sign.png',
             'url': 'mailto:?subject=Powir: open source windows based battery monitoring app&amp;body=Check out app at: https://www.powir.slapbot.me'
         },{
+            'id': 4,
             'text': 'Share on Linkedin!',
             'iconUrl': 'https://img.icons8.com/doodle/48/000000/linkedin-circled.png',
             'url': 'https://www.linkedin.com/sharing/share-offsite/?url=powir.slapbot.me'
         },{
+            'id': 5,
             'text': 'Share on Reddit!',
             'iconUrl': 'https://img.icons8.com/doodle/48/000000/reddit.png',
             'url': 'https://www.reddit.com/submit?url=https://powir.slapbot.me&title=Powir:%20Open%20Source%20Windows%20Based%20Battery%20Monitoring%20App'
@@ -30,22 +37,26 @@ function LinksWindow() {
     ]
     let helpLinks = [
         {
+            'id': 0,
             'heading': 'Issues/Bugs',
             'iconUrl': 'https://img.icons8.com/doodle/48/000000/repository.png',
             'url': 'https://github.com/slapbot/powir/issues',
             'message': 'Looking for any help related to the product or want to report a bug? Feel free to raise an issue on Github'
         },{
+            'id': 1,
             'heading': 'Chat/Updates',
             'iconUrl': 'https://img.icons8.com/doodle/48/000000/comments.png',
             'url': 'https://twitter.com/ugupta41',
             'message': 'Want to share some insight without signing up on Github or looking for updates? Follow me @ugupta41 on Twitter'
         },{
+            'id': 2,
             'heading': 'Feedback/Enquiry',
             'iconUrl': 'https://img.icons8.com/doodle/48/000000/mail-contact.png',
             'url': 'https://twitter.com/ugupta41',
             'message': 'Old school? Write me a mail at: ugupta41@gmail.com'
         },
     ]
+
     return (
         <div>
             <div className="flex flex-wrap border-bottom mt-3 pb-3">
@@ -61,13 +72,14 @@ function LinksWindow() {
                             </div>
                         </div>
                         {helpLinks.map(shareLink => {
-                            return <div>
+                            return <div key={shareLink.id}>
                                 <div className='flex mt-2'>
                                     <div className='content-center'>
                                         <img className='no-border mr-2' src={shareLink.iconUrl}/>
-                                        <h4><a href={shareLink.url}>
-                                            {shareLink.heading}
-                                        </a></h4>
+                                        <h4><button
+                                            className='clean-button'
+                                            onClick={() => openExternalLink(shareLink.url)}>{shareLink.heading}
+                                        </button></h4>
                                     </div>
                                 </div>
                                 <span className='mt-1'>{shareLink.message}</span>
@@ -88,12 +100,12 @@ function LinksWindow() {
                             </div>
                         </div>
                         {shareLinks.map(shareLink => {
-                            return <div className='flex mt-2'>
+                            return <div key={shareLink.id} className='flex mt-2'>
                                 <div className='content-center'>
                                     <img className='no-border mr-2' src={shareLink.iconUrl}/>
-                                    <h4><a href={shareLink.url}>
+                                    <h4><button className='clean-button' onClick={() => openExternalLink(shareLink.url)}>
                                         {shareLink.text}
-                                    </a></h4>
+                                    </button></h4>
                                 </div>
                             </div>
                         })}

@@ -2,7 +2,6 @@ import React from "react";
 
 function SidebarRow(props) {
     function notifySidebar() {
-        console.log('pressed')
         props.notifyBody(props.value.index)
     }
 

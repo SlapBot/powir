@@ -1,5 +1,4 @@
 import React from 'react';
-import './App.css';
 import { defaults }  from 'react-chartjs-2';
 import Navbar from "./components/Navbar";
 import Body from "./components/Body";

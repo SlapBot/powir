@@ -48,10 +48,10 @@ function Sidebar(props) {
             </ul>
             <div className="border-top mt-8 pt-8">
                 <p>Made With</p>
-                <img src="https://img.icons8.com/cotton/64/000000/like--v1.png" alt="heart" style={{
-                    border: "none"
-                }}/>
-                <p>By <a href="https://slapbot.me">Slapbot</a></p>
+                <img className='no-border' src="https://img.icons8.com/cotton/64/000000/like--v1.png" alt="heart" />
+                <p>By <button className='clean-button underline' onClick={() => ("https://slapbot.me")}>
+                    Slapbot
+                </button></p>
                 <p className="text-xs mt-48" style={{
                     marginLeft: ".2rem",
                     fontSize: ".5rem"

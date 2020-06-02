@@ -7,11 +7,11 @@ const JSSoup = require('jssoup').default
 function generateBatteryReport(cmd) {
     return new Promise((resolve, reject) => {
         exec(cmd, (err, stdout, stderr) => {
-            if (stderr) {
-                resolve(stderr)
-            }
             if (stdout) {
                 resolve(stdout)
+            }
+            if (stderr) {
+                reject(stderr)
             }
             reject(err)
         })
@@ -67,11 +67,23 @@ function cleanNewlineText(text) {
 
 function getNote(soup, index) {
     switch (index) {
+        // Don't want to scrape this part in case Windows changes the DOM and hence increasing stability
         case 0:
             return "Information about your system"
+        case 1:
+            return "Information about each currently installed battery"
+        case 2:
+            return "Power states over the last 3 days"
         case 3:
-            // noinspection JSUnresolvedVariable
-            return cleanNewlineText(soup[index].previousSibling.previousSibling.text)
+            return "Battery drains over the last 3 days"
+        case 4:
+            return "History of system usage on AC and battery"
+        case 5:
+            return "Charge capacity history of the system's batteries"
+        case 6:
+            return "Battery life estimates based on observed drains"
+        case 7:
+            return "Current estimate of battery life based on all observed drains since OS install"
         default:
             return cleanNewlineText(soup[index].previousSibling.text)
     }
@@ -89,7 +101,16 @@ function getKeyValueInfo(data, rInfo) {
 
 function getTabulatedKeys(data, rawInfo, index) {
     // noinspection JSUnresolvedFunction
-    let colElements = rawInfo[index].findAll("td").map(element => cleanNewlineText(element.text))
+    let colElements = rawInfo[index].findAll("td").reduce((data, element) => {
+        let formattedElement = cleanNewlineText(element.text)
+        if (formattedElement) {
+            data.push(formattedElement)
+        }
+        return data
+    }, [])
+    if (colElements.length === 0) {
+        return colElements
+    }
     switch (data.name) {
         case 'powerUsageInfo':
         case 'batteryUsageInfo':
@@ -100,12 +121,17 @@ function getTabulatedKeys(data, rawInfo, index) {
         case 'powerUsageHistoryInfo':
         case 'batteryLifeHistory':
             // noinspection JSUnresolvedFunction
-            let colSubElements = rawInfo[0].findAll("td")
-                .map(element => cleanNewlineText(element.text))
-                .filter(element => element)
-            return colElements
-                .filter(colElement => colElement)
-                .map((colElement, index) => {
+            let colSubElements = rawInfo[0].findAll("td").reduce((data, element) => {
+                let formattedElement = cleanNewlineText(element.text)
+                if (formattedElement) {
+                    data.push(formattedElement)
+                }
+                return data
+            }, [])
+            if (colSubElements.length < 2) {
+                return colElements
+            }
+            return colElements.map((colElement, index) => {
                     if (index > 0 && index < 3) {
                         return colElement + ' (' + colSubElements[0] + ')'
                     }
@@ -209,7 +235,7 @@ async function scrape(html) {
     let soup = getSoupInstance(html)
     let tables = getTables(soup)
     let values = [
-        {tables: tables, name: 'sysInfo', index: 0, filterType: 'KEY_VALUE'},
+        {tables: tables, name: 'systemInfo', index: 0, filterType: 'KEY_VALUE'},
         {tables: tables, name: 'batteryInfo', index: 1, filterType: 'KEY_VALUE'},
         {tables: tables, name: 'powerUsageInfo', index: 2, filterType: 'TABULATED_SIMPLE'},
         {tables: tables, name: 'batteryUsageInfo', index: 3, filterType: 'TABULATED_SIMPLE'},

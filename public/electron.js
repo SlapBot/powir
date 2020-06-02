@@ -1,22 +1,9 @@
-const { app, BrowserWindow, ipcMain, dialog, Menu } = require('electron')
+const { app, BrowserWindow, ipcMain, Menu } = require('electron')
 const path = require('path')
 const isDev  = require('electron-is-dev')
-const scraper = require("./app/scrape")
-// const { template } = require("./app/menu")
+const server = require('./app/server')
+const { getMenuTemplate } = require('./app/menu')
 
-
-function getBatteryReport() {
-  // return scraper.generateBatteryReport('powercfg /batteryreport')
-  //     .then(_ => scraper.getHtmlFromFile('battery-report.html'))
-  //     .catch(error => console.log(error))
-  //     .then(html => scraper.scrape(html))
-
-  return scraper.getHtmlFromFile('battery-report.html')
-      .catch(error => console.log(error))
-      .then(html => scraper.scrape(html))
-}
-
-let batteryReport = getBatteryReport()
 
 function createWindow () {
   // Create the browser window.
@@ -34,15 +21,15 @@ function createWindow () {
   // and load the index.html of the app.
   win.loadURL(
       isDev ? "http://localhost:3000" : `file://${path.join(__dirname, '../build/index.html')}`
-  )
+  ).catch(error => server.log('error', error))
 
   // Open the DevTools.
   win.webContents.openDevTools()
 }
 
-
-// const menu = Menu.buildFromTemplate(template)
-// Menu.setApplicationMenu(menu)
+const menuTemplate = getMenuTemplate(server)
+const menu = Menu.buildFromTemplate(menuTemplate)
+Menu.setApplicationMenu(menu)
 
 
 // This method will be called when Electron has finished
@@ -70,62 +57,25 @@ app.on('activate', () => {
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
 ipcMain.on('battery-report-ready', (event, data) => {
-  console.log("received battery-report-ready signal")
-  batteryReport.then(data => {
-    console.log("sending battery-report signal")
-    event.reply('battery-report', data)
-  })
+  server.sendBatteryReport(event, data)
 })
 
 ipcMain.on('show-original-report', (event, data) => {
-  const win = new BrowserWindow({
-    width: 800,
-    height: 600,
-  })
-  win.loadURL(`file://${__dirname}/../battery-report.html`)
+  server.showOriginalReport()
 })
 
 ipcMain.on('export-JSON-data', (event, data) => {
-  let options = {
-    title: "Export Data: JSON format",
-    defaultPath : __dirname + '/powir-data.json',
-    buttonLabel : "Save JSON",
-    filters :[
-      {name: 'JSON', extensions: ['json']},
-      {name: 'All Files', extensions: ['*']}
-    ]
-  }
-  dialog.showSaveDialog(null, options).then(result => {
-    batteryReport.then(data => scraper.writeDataToFile(JSON.stringify(data, null, 4), result.filePath))
-        .then(_ => console.log('JSON saved!'))
-  })
+  server.exportJSONData()
 })
 
 ipcMain.on('export-PDF-report', (event, data) => {
-  function pdfSettings() {
-    return {
-      landscape: false,
-      marginsType: 0,
-      printBackground: false,
-      printSelectionOnly: false,
-      pageSize: 'A4',
-      scaleFactor: 100
-    };
-  }
+  server.exportPDFReport()
+})
 
-  let currentWindow = BrowserWindow.getAllWindows().filter(window => window.isVisible())[0]
-  let options = {
-    title: "Export Report: PDF format",
-    defaultPath : __dirname + '/powir-report.pdf',
-    buttonLabel : "Save PDF",
-    filters :[
-      {name: 'PDF', extensions: ['pdf']},
-      {name: 'All Files', extensions: ['*']}
-    ]
-  }
-  currentWindow.webContents.printToPDF(pdfSettings()).then(data => {
-    dialog.showSaveDialog(null, options).then(result => {
-      scraper.writeDataToFile(data, result.filePath).then(_ => console.log('PDF saved!'))
-    }).catch(err => console.log(err))
-  }).catch(err => console.log(err))
+ipcMain.on('get-updates', (event, data) => {
+  server.getUpdates(event, data)
+})
+
+ipcMain.on('open-link', async (event, data) => {
+  server.openLink(data.url).catch(error => server.log(error))
 })

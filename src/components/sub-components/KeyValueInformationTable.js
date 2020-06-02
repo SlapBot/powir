@@ -33,8 +33,6 @@ function KeyValueInformationTable(props) {
                                 </div>
                             </div>
                         </div>
-                    case 5:
-                        return <span className="badge bg-red text-lg">{element}</span>
                     default:
                         return <p>{element}</p>
                 }

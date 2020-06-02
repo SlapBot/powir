@@ -1,4 +1,5 @@
 import React from "react";
+import openExternalLink from "./openExternalLink";
 
 function Navbar() {
     return (
@@ -9,7 +10,10 @@ function Navbar() {
                     justifyContent: "space-between"
                 }}>
                     <div className="content-center">
-                        <div className="content-center pr-2 custom-border border-right">
+                        <div
+                            className="content-center pr-2 custom-border border-right cursor-pointer"
+                            onClick={() => openExternalLink('https://powir.slapbot.me')}
+                        >
                             <h4>
                                 Powir
                             </h4>
@@ -22,10 +26,18 @@ function Navbar() {
                     </div>
                     <div className="content-center">
                         <div className="content-center mr-1">
-                            <img className="no-border" src="https://img.icons8.com/doodle/48/000000/github--v1.png" alt="Github"/>
+                            <img className="no-border cursor-pointer"
+                                 src="https://img.icons8.com/doodle/48/000000/github--v1.png"
+                                 alt="Github"
+                                 onClick={() => openExternalLink('https://github.com/slapbot/powir')}
+                            />
                         </div>
                         <div className="content-center">
-                            <img className="no-border" src="https://img.icons8.com/doodle/48/000000/twitter--v1.png" alt="Twitter"/>
+                            <img className="no-border cursor-pointer"
+                                 src="https://img.icons8.com/doodle/48/000000/twitter--v1.png"
+                                 alt="Twitter"
+                                 onClick={() => openExternalLink('https://twitter.com/ugupta41')}
+                            />
                         </div>
                     </div>
                 </div>

@@ -20,12 +20,10 @@ function InformationWindow() {
     const [batteryLifeOverallHistory, setBatteryLifeOverallHistory] = useState({})
 
     useEffect(() => {
-        console.log('sending battery-report-ready signal')
         ipcRenderer.send("battery-report-ready", {status: true})
     }, [])
 
     useEffect(() => {
-        console.log('sending battery-report signal')
         ipcRenderer.on('battery-report', (event, data) => {
             setSystemInfo(data[0])
             setBatteryInfo(data[1])

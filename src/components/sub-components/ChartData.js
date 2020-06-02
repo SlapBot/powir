@@ -310,8 +310,8 @@ function createActiveSuspendedPiePowerUsageInfoData(info) {
 function createLinePowerUsageInfoData(info) {
     let percentageDataset = info.data.reduce((data, item, index) => {
         let dateString = (date) => date.getMonth()+1 + "/" + date.getDate() + " " + date.getHours() + ":" + date.getMinutes()
-        if (index > 0) {
-            if (item[item.length-2] === info.data[index-1][info.data[index-1].length-2]) {
+        if (index > 1) {
+            if (item[item.length-2] === info.data[index-2][info.data[index-2].length-2]) {
                 return data
             }
         }
