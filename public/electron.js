@@ -6,12 +6,12 @@ const { getMenuTemplate } = require('./app/menu')
 
 
 function createWindow () {
-  // Create the browser window.
   const win = new BrowserWindow({
     width: 800,
     height: 600,
     webPreferences: {
-      nodeIntegration: true
+      nodeIntegration: true,
+      enableRemoteModule: true,
     },
     show: false
   })
@@ -24,7 +24,7 @@ function createWindow () {
   ).catch(error => server.log('error', error))
 
   // Open the DevTools.
-  win.webContents.openDevTools()
+  isDev ? win.webContents.openDevTools() : null
 }
 
 const menuTemplate = getMenuTemplate(server)

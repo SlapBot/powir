@@ -6,50 +6,50 @@ function AboutWindow() {
         {
             'id': 0,
             'text': 'Provides you with a simple and clean UI to list your battery and system information.',
-            'icon': 'https://img.icons8.com/doodle/48/000000/picture.png'
+            'icon': 'assets/images/picture.png'
         },{
             'id': 1,
             'text': 'Shows you the change in battery capacity since the OS was installed.',
-            'icon': 'https://img.icons8.com/doodle/48/000000/high-battery.png'
+            'icon': 'assets/images/high-battery.png'
         },{
             'id': 2,
             'text': 'Analyzes the current and overall estimated battery life of your system.',
-            'icon': 'https://img.icons8.com/doodle/48/000000/hourglass--v1.png'
+            'icon': 'assets/images/hourglass--v1.png'
         },{
             'id': 3,
             'text': 'Computes various statistics to give a better understanding of your power usage.',
-            'icon': 'https://img.icons8.com/doodle/48/000000/statistics--v1.png'
+            'icon': 'assets/images/statistics--v1.png'
         },{
             'id': 4,
             'text': 'Ability to export all of the data via various formats: PDF (app), JSON (processed), HTML (original report).',
-            'icon': 'https://img.icons8.com/doodle/48/000000/rescan-document.png'
+            'icon': 'assets/images/rescan-document.png'
         },{
             'id': 5,
             'text': '100% free and completely open-source for absolute transparency.',
-            'icon': 'https://img.icons8.com/doodle/48/000000/console--v2.png'
+            'icon': 'assets/images/console--v2.png'
         },{
             'id': 6,
             'text': 'Completely portable app with no installation required, ready to use out of the box.',
-            'icon': 'https://img.icons8.com/doodle/48/000000/audio-cable.png'
+            'icon': 'assets/images/audio-cable.png'
         }
     ]
     let reasons = [
         {
             'id': 0,
             'text': 'Complete lack of any such power/battery monitoring analyzing tool available in the market.',
-            'icon': 'https://img.icons8.com/doodle/48/000000/error.png'
+            'icon': 'assets/images/error.png'
         },{
             'id': 1,
             'text': 'Obscure documentation over how to find battery statuses on the Internet.',
-            'icon': 'https://img.icons8.com/doodle/48/000000/delete-sign.png'
+            'icon': 'assets/images/delete-sign.png'
         },{
             'id': 2,
             'text': 'Required to use terminal in order to run a command showing information about the system.',
-            'icon': 'https://img.icons8.com/doodle/48/000000/iphone-spinner.png'
+            'icon': 'assets/images/iphone-spinner.png'
         },{
             'id': 3,
             'text': 'Devoid of any simple and understandable metrics from the underlying API or report.',
-            'icon': 'https://img.icons8.com/doodle/48/000000/api.png'
+            'icon': 'assets/images/api.png'
         },
     ]
     return (
@@ -60,7 +60,7 @@ function AboutWindow() {
                         <div className="w-full lg:w-1/2">
                             <div>
                                 <div className="flex">
-                                    <img className="no-border mr-2" src="https://img.icons8.com/doodle/48/000000/windows-client.png"/>
+                                    <img className="no-border mr-2" src="assets/images/windows-client.png" alt='windows-client'/>
                                     <h3>What is Powir?</h3>
                                 </div>
                                 <div className="p-3">
@@ -73,7 +73,7 @@ function AboutWindow() {
                         <div className="w-full lg:w-1/2">
                             <div>
                                 <div className="flex">
-                                    <img className="no-border mr-2" src="https://img.icons8.com/doodle/48/000000/so-so.png"/>
+                                    <img className="no-border mr-2" src="assets/images/so-so.png" alt='so-so'/>
                                     <h3>Who build it?</h3>
                                 </div>
                                 <div className="p-3">
@@ -96,7 +96,7 @@ function AboutWindow() {
                         <div className="w-full lg:w-1/2">
                             <div className="">
                                 <div className="flex flex-wrap">
-                                    <img className="no-border mr-2" src="https://img.icons8.com/doodle/48/000000/used-product.png"/>
+                                    <img className="no-border mr-2" src="assets/images/used-product.png" alt='used-product'/>
                                     <h3>What it does?</h3>
                                 </div>
                                 <div className="p-1 mt-2">
@@ -104,7 +104,7 @@ function AboutWindow() {
                                         {features.map(item => {
                                             return <li key={item.id} className="mb-1 flex">
                                                 <div className='content-center'>
-                                                    <img className="no-border mr-1" src={item.icon}/>
+                                                    <img className="no-border mr-1" src={item.icon} alt={item.icon}/>
                                                     <p>{item.text}</p>
                                                 </div>
                                             </li>
@@ -116,7 +116,7 @@ function AboutWindow() {
                         <div className="w-full lg:w-1/2">
                             <div className="">
                                 <div className="flex">
-                                    <img className="no-border mr-2" src="https://img.icons8.com/doodle/48/000000/hammer--v1.png"/>
+                                    <img className="no-border mr-2" src="assets/images/hammer--v1.png" alt='hammer--v1'/>
                                     <h3>Why build it?</h3>
                                 </div>
                                 <div className="p-1 mt-2">
@@ -124,7 +124,7 @@ function AboutWindow() {
                                         {reasons.map(item => {
                                             return <li key={item.id} className="mb-1 flex">
                                                 <div className='content-center'>
-                                                    <img className="no-border mr-1" src={item.icon}/>
+                                                    <img className="no-border mr-1" src={item.icon} alt={item.icon}/>
                                                     <p>{item.text}</p>
                                                 </div>
                                             </li>
@@ -138,7 +138,7 @@ function AboutWindow() {
                 <div className="w-full">
                     <div className='mt-2'>
                         <div className='flex mb-4'>
-                            <img className="no-border mr-2" src="https://img.icons8.com/doodle/48/000000/help.png"/>
+                            <img className="no-border mr-2" src="assets/images/help.png" alt='help'/>
                             <h3>FAQs</h3>
                         </div>
                         <div className='mt-3'>

@@ -4,12 +4,10 @@ import openExternalLink from "./openExternalLink";
 function Footer() {
     return (
         <div className="custom-border border-top">
-            <div className='mt-2 flex' style={{
-                justifyContent: "space-between"
-            }}>
+            <div className='mt-2 flex justify-between'>
                 <div>
                     <div className="flex">
-                        <img className='no-border mr-2' src="https://img.icons8.com/cotton/24/000000/copyright.png" alt="heart"/>
+                        <img className='no-border mr-2' src="assets/images/copyright.png" alt="heart"/>
                         <button
                             className="clean-button"
                             onClick={() => openExternalLink("https://slapbot.me")}>

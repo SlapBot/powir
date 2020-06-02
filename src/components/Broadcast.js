@@ -68,11 +68,13 @@ function Broadcast() {
         return (
             <div>
                 <div className={alertClass}>
-                    <div className='flex' style={{
-                        justifyContent: 'space-between'
-                    }}>
+                    <div className='flex justify-between'>
                         {renderMessage(broadcast.text)}
-                        <img className='cursor-pointer' onClick={closeCallback} src="https://img.icons8.com/doodle/20/000000/delete-sign.png"/>
+                        <img className='cursor-pointer image-24'
+                             onClick={closeCallback}
+                             src="assets/images/delete-sign.png"
+                             alt='delete-sign'
+                        />
                     </div>
                 </div>
             </div>

@@ -23,11 +23,11 @@ function KeyValueInformationTable(props) {
                                 </span>
                             </div>
                             <div className="content-center ml-1">
-                                <div popover-right={index === 4 ? extraHelp[0].popoverHelp : extraHelp[1].popoverHelp} style={{
-                                    margin: "0"
-                                }}>
+                                <div className='m-0-important'
+                                     popover-right={index === 4 ? extraHelp[0].popoverHelp : extraHelp[1].popoverHelp}
+                                >
                                     <img className="no-border"
-                                         src="https://img.icons8.com/ios/24/000000/help.png"
+                                         src="assets/images/ios-help.png"
                                          alt="help"
                                     />
                                 </div>
@@ -51,7 +51,7 @@ function KeyValueInformationTable(props) {
     return (
         <div>
             <div className='flex'>
-                <img className='no-border mr-1' src={props.iconUrl}/>
+                <img className='no-border mr-1' src={props.iconUrl} alt={props.iconAlt}/>
                 <h3>{props.heading}</h3>
             </div>
             <span className="text-xs">{props.info.note}</span>

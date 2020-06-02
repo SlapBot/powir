@@ -6,32 +6,32 @@ function LinksWindow() {
         {
             'id': 0,
             'text': 'Copy Link!',
-            'iconUrl': 'https://img.icons8.com/doodle/48/000000/link.png',
+            'iconUrl': 'assets/images/link.png',
             'url': 'https://powir.slapbot.me'
         },{
             'id': 1,
             'text': 'Tweet about it!',
-            'iconUrl': 'https://img.icons8.com/doodle/48/000000/twitter-circled.png',
+            'iconUrl': 'assets/images/twitter-circled.png',
             'url': 'https://twitter.com/intent/tweet?url=powir.slapbot.me&text=Check%20out%20this%20open%20source%20windows%20battery%20monitoring%20app:&hashtags=powir'
         },{
             'id': 2,
             'text': 'Share on Facebook!',
-            'iconUrl': 'https://img.icons8.com/doodle/48/000000/facebook.png',
+            'iconUrl': 'assets/images/facebook.png',
             'url': 'http://www.facebook.com/sharer.php?s=100&p[title]=Powir&p[url]=powir.slapbot.me'
         },{
             'id': 3,
             'text': 'Mail to someone!',
-            'iconUrl': 'https://img.icons8.com/doodle/48/000000/email-sign.png',
+            'iconUrl': 'assets/images/email-sign.png',
             'url': 'mailto:?subject=Powir: open source windows based battery monitoring app&amp;body=Check out app at: https://www.powir.slapbot.me'
         },{
             'id': 4,
             'text': 'Share on Linkedin!',
-            'iconUrl': 'https://img.icons8.com/doodle/48/000000/linkedin-circled.png',
+            'iconUrl': 'assets/images/linkedin-circled.png',
             'url': 'https://www.linkedin.com/sharing/share-offsite/?url=powir.slapbot.me'
         },{
             'id': 5,
             'text': 'Share on Reddit!',
-            'iconUrl': 'https://img.icons8.com/doodle/48/000000/reddit.png',
+            'iconUrl': 'assets/images/reddit.png',
             'url': 'https://www.reddit.com/submit?url=https://powir.slapbot.me&title=Powir:%20Open%20Source%20Windows%20Based%20Battery%20Monitoring%20App'
         },
     ]
@@ -39,20 +39,20 @@ function LinksWindow() {
         {
             'id': 0,
             'heading': 'Issues/Bugs',
-            'iconUrl': 'https://img.icons8.com/doodle/48/000000/repository.png',
+            'iconUrl': 'assets/images/repository.png',
             'url': 'https://github.com/slapbot/powir/issues',
             'message': 'Looking for any help related to the product or want to report a bug? Feel free to raise an issue on Github'
         },{
             'id': 1,
             'heading': 'Chat/Updates',
-            'iconUrl': 'https://img.icons8.com/doodle/48/000000/comments.png',
+            'iconUrl': 'assets/images/comments.png',
             'url': 'https://twitter.com/ugupta41',
             'message': 'Want to share some insight without signing up on Github or looking for updates? Follow me @ugupta41 on Twitter'
         },{
             'id': 2,
             'heading': 'Feedback/Enquiry',
-            'iconUrl': 'https://img.icons8.com/doodle/48/000000/mail-contact.png',
-            'url': 'https://twitter.com/ugupta41',
+            'iconUrl': 'assets/images/mail-contact.png',
+            'url': 'mailto:ugupta41@gmail.com',
             'message': 'Old school? Write me a mail at: ugupta41@gmail.com'
         },
     ]
@@ -64,25 +64,25 @@ function LinksWindow() {
                     <div className='border-bottom pb-2'>
                         <div className='mt-2 mb-4'>
                             <div className="flex">
-                                <img className='no-border mr-2' src="https://img.icons8.com/doodle/48/000000/help.png"/>
+                                <img className='no-border mr-2' src="assets/images/help.png" alt='help'/>
                                 <h3>Help</h3>
                             </div>
                             <div>
                                 <span>Looking for any kind of help?</span>
                             </div>
                         </div>
-                        {helpLinks.map(shareLink => {
-                            return <div key={shareLink.id}>
+                        {helpLinks.map(helpLink => {
+                            return <div key={helpLink.id}>
                                 <div className='flex mt-2'>
                                     <div className='content-center'>
-                                        <img className='no-border mr-2' src={shareLink.iconUrl}/>
+                                        <img className='no-border mr-2' src={helpLink.iconUrl} alt={helpLink.iconUrl}/>
                                         <h4><button
                                             className='clean-button'
-                                            onClick={() => openExternalLink(shareLink.url)}>{shareLink.heading}
+                                            onClick={() => openExternalLink(helpLink.url)}>{helpLink.heading}
                                         </button></h4>
                                     </div>
                                 </div>
-                                <span className='mt-1'>{shareLink.message}</span>
+                                <span className='mt-1'>{helpLink.message}</span>
                             </div>
                         })}
 
@@ -91,7 +91,7 @@ function LinksWindow() {
                         <div>
                             <div className='mt-2 mb-4'>
                                 <div className="flex">
-                                    <img className='no-border mr-2' src="https://img.icons8.com/doodle/48/000000/share--v1.png"/>
+                                    <img className='no-border mr-2' src="assets/images/share--v1.png" alt='share--v1'/>
                                     <h3>Share</h3>
                                 </div>
                                 <div>
@@ -102,7 +102,7 @@ function LinksWindow() {
                         {shareLinks.map(shareLink => {
                             return <div key={shareLink.id} className='flex mt-2'>
                                 <div className='content-center'>
-                                    <img className='no-border mr-2' src={shareLink.iconUrl}/>
+                                    <img className='no-border mr-2' src={shareLink.iconUrl} alt={shareLink.iconUrl}/>
                                     <h4><button className='clean-button' onClick={() => openExternalLink(shareLink.url)}>
                                         {shareLink.text}
                                     </button></h4>

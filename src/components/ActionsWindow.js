@@ -18,7 +18,7 @@ function AboutWindow(props) {
                 <div className="w-full">
                     <div className='pt-4 pb-6 border-bottom'>
                         <div className="flex">
-                            <img className='no-border mr-2' src="https://img.icons8.com/doodle/48/000000/pdf.png"/>
+                            <img className='no-border mr-2' src="assets/images/pdf.png" alt='pdf'/>
                             <h3>Export Report (PDF)</h3>
                         </div>
                         <p className='mt-2'>
@@ -28,7 +28,7 @@ function AboutWindow(props) {
                     </div>
                     <div className='pt-4 pb-6 border-bottom'>
                         <div className="flex">
-                            <img className='no-border mr-2' src="https://img.icons8.com/doodle/48/000000/code-file.png"/>
+                            <img className='no-border mr-2' src="assets/images/code-file.png" alt='code-file'/>
                             <h3>Export Data (JSON)</h3>
                         </div>
                         <p className='mt-2'>
@@ -38,7 +38,7 @@ function AboutWindow(props) {
                     </div>
                     <div className='pt-4 pb-6'>
                         <div className="flex">
-                            <img className='no-border mr-2' src="https://img.icons8.com/doodle/48/000000/select-all.png"/>
+                            <img className='no-border mr-2' src="assets/images/select-all.png" alt='select-all'/>
                             <h3>Original Report</h3>
                         </div>
                         <p className='mt-2'>

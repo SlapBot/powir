@@ -8,6 +8,7 @@
     "productName": "react-app",
     "appId": "slapbot.me",
     "win": {
+      "icon": "build/icon.ico",
       "target": "portable"
     }
   },

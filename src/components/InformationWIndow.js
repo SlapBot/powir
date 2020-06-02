@@ -44,7 +44,8 @@ function InformationWindow() {
                         <KeyValueInformationTable
                             info={batteryInfo}
                             heading={"Battery Information"}
-                            iconUrl={"https://img.icons8.com/doodle/48/000000/high-battery.png"}
+                            iconUrl={"assets/images/high-battery.png"}
+                            iconAlt={"high-battery"}
                         />
                     )}
                 </div>
@@ -69,7 +70,7 @@ function InformationWindow() {
                         <KeyValueInformationTable
                             info={systemInfo}
                             heading={"System Information"}
-                            iconUrl={"https://img.icons8.com/doodle/48/000000/windows8.png"}
+                            iconUrl={"assets/images/windows8.png"}
                         />
                     )}
                 </div>
@@ -102,7 +103,7 @@ function InformationWindow() {
                     <div className="w-full lg:w-1/2">
                         <div className="w-full">
                             <div className="flex">
-                                <img className='no-border mr-1' src="https://img.icons8.com/doodle/48/000000/lightning-arrow.png"/>
+                                <img className='no-border mr-1' src="assets/images/lightning-arrow.png" alt={'lightning-arrow'}/>
                                 <h3>Recent Power & Battery Usage</h3>
                             </div>
                             <span className='text-xs'>Observed power and battery states of the system in the recent time period.</span>

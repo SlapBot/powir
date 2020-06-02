@@ -1,0 +1,12 @@
+@font-face {
+  font-family: 'Neucha';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Neucha'), url(https://fonts.gstatic.com/s/neucha/v11/q5uGsou0JOdh94bfvQlo.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Patrick Hand SC';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Patrick Hand SC'), local('PatrickHandSC-Regular'), url(https://fonts.gstatic.com/s/patrickhandsc/v7/0nkwC9f7MfsBiWcLtY65AWDK873ljiK-.ttf) format('truetype');
+}
