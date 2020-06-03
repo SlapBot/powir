@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import openExternalLink from './utils/openExternalLink'
+import config from './utils/config'
 const { ipcRenderer } = window.require('electron')
 
 
@@ -12,7 +13,7 @@ function Broadcast() {
             "text": ""
         },
         "update": {
-            "status": false,
+            'version': config.version,
             "text": ""
         },
     })
@@ -29,7 +30,7 @@ function Broadcast() {
             if (data.personal.status) {
                 setShouldRenderPersonal(true)
             }
-            if (data.update.status) {
+            if (data.update.version !== config.version) {
                 setShouldRenderUpdate(true)
             }
         })

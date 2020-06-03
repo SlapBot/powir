@@ -1,12 +1,28 @@
 {
-  "name": "react-app",
-  "version": "0.1.0",
-  "description": "Testing App",
-  "author": "slapbot",
+  "name": "powir",
+  "version": "1.0.0",
+  "description": "Windows 10 based tool to monitor and analyze your system's power and battery usage",
   "main": "public/electron.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SlapBot/powir.git"
+  },
+  "author": {
+    "name": "Ujjwal Gupta",
+    "email": "ugupta41@gmail.com",
+    "url": "https://http://slapbot.me/"
+  },
+  "keywords": [
+    "electron",
+    "battery",
+    "windows-battery",
+    "react",
+    "battery-monitoring",
+    "battery-analyzer"
+  ],
   "build": {
-    "productName": "react-app",
-    "appId": "slapbot.me",
+    "productName": "powir",
+    "appId": "powir.slapbot.me",
     "win": {
       "icon": "build/icon.ico",
       "target": "portable"
@@ -36,8 +52,7 @@
     "react-eject": "react-scripts eject",
     "electron-start": "set ELECTRON_START_URL=http://localhost:3000 && electron .",
     "electron-build": "electron-builder",
-    "build": "npm run react-build && npm run electron-build",
-    "start": "concurrently \"cross-env npm run react-start\" \"wait-on http://localhost:3000 && npm run electron-start\""
+    "build": "npm run react-build && npm run electron-build"
   },
   "eslintConfig": {
     "extends": "react-app"

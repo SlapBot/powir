@@ -1,5 +1,6 @@
 import React from "react";
 import openExternalLink from "./utils/openExternalLink";
+import config from "./utils/config";
 
 function Navbar() {
     return (
@@ -14,7 +15,7 @@ function Navbar() {
                             <h4>
                                 Powir
                             </h4>
-                            <span className="badge ml-1 mt-0-3 text-sm">v1.0</span>
+                            <span className="badge ml-1 mt-0-3 text-sm">v{config.version}</span>
                         </div>
                         <h5 className="content-center ml-2">Monitoring & Analyzing Your Battery!</h5>
                     </div>
