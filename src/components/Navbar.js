@@ -1,5 +1,5 @@
 import React from "react";
-import openExternalLink from "./openExternalLink";
+import openExternalLink from "./utils/openExternalLink";
 
 function Navbar() {
     return (

@@ -24,3 +24,5 @@ yarn-error.log*
 
 .idea/
 dist/
+battery-report.html
+

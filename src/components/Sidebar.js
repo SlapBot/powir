@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import SidebarRow from "./SidebarRow";
+import SidebarRow from "./sub-components/SidebarRow";
 
 function Sidebar(props) {
     const [sidebarRows, setSideBarRows] = useState([

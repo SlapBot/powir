@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import openExternalLink from './openExternalLink'
+import openExternalLink from './utils/openExternalLink'
 const { ipcRenderer } = window.require('electron')
 
 
