@@ -46,13 +46,15 @@
     "react-scripts": "3.4.1"
   },
   "scripts": {
-    "react-start": "set BROWSER=none&&react-scripts start",
+    "browser-react-start": "set REACT_APP_LITE_MODE=1&&react-scripts start",
+    "react-start": "set BROWSER=none&&set REACT_APP_LITE_MODE=0&&react-scripts start",
     "react-build": "react-scripts build",
     "react-test": "react-scripts test",
     "react-eject": "react-scripts eject",
     "electron-start": "set ELECTRON_START_URL=http://localhost:3000 && electron .",
     "electron-build": "electron-builder",
-    "build": "npm run react-build && npm run electron-build"
+    "build": "npm run react-build && npm run electron-build",
+    "lite-mode": "npm run browser-react-start"
   },
   "eslintConfig": {
     "extends": "react-app"

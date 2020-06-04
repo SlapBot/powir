@@ -3,7 +3,7 @@ import KeyValueInformationTable from "./sub-components/KeyValueInformationTable"
 import Chart from "./sub-components/Chart";
 import CurrentBatteryEstimate from "./sub-components/CurrentBatteryEstimate";
 import RecentBatteryEstimate from "./sub-components/RecentBatteryEstimate";
-const { ipcRenderer } = window.require('electron')
+import { getReport } from './utils/fetcher'
 
 function InformationWindow() {
     function shouldRenderComponent(component) {
@@ -19,21 +19,19 @@ function InformationWindow() {
     const [batteryLifeHistory, setBatteryLifeHistory] = useState({})
     const [batteryLifeOverallHistory, setBatteryLifeOverallHistory] = useState({})
 
-    useEffect(() => {
-        ipcRenderer.send("battery-report-ready", {status: true})
-    }, [])
+    function setValues(data) {
+        setSystemInfo(data[0])
+        setBatteryInfo(data[1])
+        setPowerUsageInfo(data[2])
+        setBatteryUsageInfoData(data[3])
+        setBatteryCapacityHistory(data[5])
+        setBatteryLifeHistory(data[6])
+        setBatteryLifeOverallHistory(data[7])
+        setDataFetchStatus(true)
+    }
 
     useEffect(() => {
-        ipcRenderer.on('battery-report', (event, data) => {
-            setSystemInfo(data[0])
-            setBatteryInfo(data[1])
-            setPowerUsageInfo(data[2])
-            setBatteryUsageInfoData(data[3])
-            setBatteryCapacityHistory(data[5])
-            setBatteryLifeHistory(data[6])
-            setBatteryLifeOverallHistory(data[7])
-            setDataFetchStatus(true)
-        })
+        getReport(setValues)
     }, [])
 
     return (

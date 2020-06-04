@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import SidebarRow from "./sub-components/SidebarRow";
+import openExternalLink from "./utils/openExternalLink";
 
 function Sidebar(props) {
     const [sidebarRows, setSideBarRows] = useState([
@@ -49,7 +50,7 @@ function Sidebar(props) {
             <div className="border-top mt-8 pt-8">
                 <p>Made With</p>
                 <img className='no-border' src="assets/images/like--v1.png" alt="heart" />
-                <p>By <button className='clean-button underline' onClick={() => ("https://slapbot.me")}>
+                <p>By <button className='clean-button underline' onClick={() => openExternalLink("https://slapbot.me")}>
                     Slapbot
                 </button></p>
                 <p className="text-xs sidebar-footnote">100 % open source</p>

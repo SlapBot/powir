@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import ContentWindow from "./ContentWindow";
 import Sidebar from "./Sidebar";
-const { ipcRenderer } = window.require('electron')
+import { sendEvent } from './utils/fetcher'
 
 
 function Body() {
@@ -11,7 +11,7 @@ function Body() {
     }
     function setInformationWindow() {
         setCurrentSection(0)
-        ipcRenderer.send("export-PDF-report", {status: true})
+        sendEvent("export-PDF-report", {status: true})
     }
     return (
         <div className="flex">

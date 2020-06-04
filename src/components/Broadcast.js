@@ -1,12 +1,9 @@
 import React, {useEffect, useState} from "react";
 import openExternalLink from './utils/openExternalLink'
 import config from './utils/config'
-const { ipcRenderer } = window.require('electron')
-
+import { getUpdates } from './utils/fetcher'
 
 function Broadcast() {
-    const broadcastUrl = 'https://gist.github.com/SlapBot/4b093f88d97522e22205ae9c9d0dea02/raw/update.json'
-
     const [broadcastData, setBroadcastData] = useState({
         "personal": {
             "status": false,
@@ -20,20 +17,17 @@ function Broadcast() {
     const [shouldRenderPersonal, setShouldRenderPersonal] = useState(false)
     const [shouldRenderUpdate, setShouldRenderUpdate] = useState(false)
 
+    function setValues(data) {
+        setBroadcastData(data)
+        if (data.personal.status) {
+            setShouldRenderPersonal(true)
+        }
+        if (data.update.version !== config.version) {
+            setShouldRenderUpdate(true)
+        }
+    }
     useEffect(() => {
-        ipcRenderer.send('get-updates', {url: broadcastUrl})
-    }, [])
-
-    useEffect(() => {
-        ipcRenderer.on('receive-updates', (event, data) => {
-            setBroadcastData(data)
-            if (data.personal.status) {
-                setShouldRenderPersonal(true)
-            }
-            if (data.update.version !== config.version) {
-                setShouldRenderUpdate(true)
-            }
-        })
+        getUpdates(setValues)
     }, [])
 
     function closePersonalAlert() {
