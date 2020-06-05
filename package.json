@@ -46,7 +46,7 @@
     "react-scripts": "3.4.1"
   },
   "scripts": {
-    "browser-react-start": "set REACT_APP_LITE_MODE=1&&react-scripts start",
+    "browser-react-start": "node public/browser.js&&set REACT_APP_LITE_MODE=1&&react-scripts start",
     "react-start": "set BROWSER=none&&set REACT_APP_LITE_MODE=0&&react-scripts start",
     "react-build": "react-scripts build",
     "react-test": "react-scripts test",
