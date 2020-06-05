@@ -73,11 +73,6 @@ and it can be copied from system to system seamlessly without any dependencies o
 
 2. [Browser Window (Lite Mode)](#browser-window-lite-mode): Installation requires few pre-requisites (node & npm) and firing a command from the command prompt which opens up a tab in your default browser serving file via local server. Actions (Export PDF, JSON) are missing in the lite mode.
 
-Simply go to [Releases](https://github.com/SlapBot/powir/releases) and pick the latest version to download.
-
-Download Latest Version: [Powir v1](https://github.com/SlapBot/powir/releases/download/1.0/powir.1.0.0.exe): **Please take a note below before downloading the app**
-
-
 ## Features
 ![](demos/processed-screenshots/about.png)
 
@@ -128,7 +123,7 @@ Download Latest Version: [Powir v1](https://github.com/SlapBot/powir/releases/do
 ### Desktop App (Main Mode)
 
 - Simply go to [Releases](https://github.com/SlapBot/powir/releases) and pick the latest version to download.
-- Download Current Latest Version: [Powir v1](https://github.com/SlapBot/powir/releases/download/1.0/powir.1.0.0.exe): **Please take a note below before downloading the app**
+- Download Current Latest Version: [Powir v1](https://github.com/SlapBot/powir/releases/download/v1.0.0/powir.1.0.0.exe): **Please take a note below before downloading the app**
 
 #### Browser And Windows Defender Warnings
 
