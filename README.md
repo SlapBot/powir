@@ -29,6 +29,7 @@
 
 * [About the Project](#about-the-project)
   * [What is it?](#what-is-it)
+  * [Installation](#installation)
 * [Features](#features)
   * [What it does?](#what-it-does)
   * [Why build it?](#why-build-it)
@@ -37,8 +38,10 @@
   * [Battery Information](#battery-information)
   * [System Information](#system-information)
   * [Power And Battery Usage](#power-and-battery-usage)
-* [Installation](#installation)
-  * [Browser And Windows Defender Warnings](#browser-and-windows-defender-warnings)
+* [Installation Methods](#installation-methods)
+  * [Desktop App (Main Mode)](#desktop-app-main-mode)
+    * [Browser And Windows Defender Warnings](#browser-and-windows-defender-warnings)
+  * [Browser Window (Lite Mode)](#browser-window-lite-mode)
 * [FAQs](#faqs)
 * [Developer](#developer)
   * [Prerequisites](#prerequisites)
@@ -59,6 +62,20 @@
 Powir is a Windows 10 based tool to monitor and analyze your system's power and battery usage.
 
 It provides you with various information and statistics about the current and overall history of the power and battery usage of your system.
+
+### Installation
+
+There are two ways to install powir:
+
+1. [Desktop App (Main Mode)](#desktop-app-main-mode): Installation is as quick as simply downloading the executable and running it.
+The App is completely portable meaning you don't have to go through an installation wizard, 
+and it can be copied from system to system seamlessly without any dependencies or extra files needed. **Recommended**
+
+2. [Browser Window (Lite Mode)](#browser-window-lite-mode): Installation requires few pre-requisites (node & npm) and firing a command from the command prompt which opens up a tab in your default browser serving file via local server. Actions (Export PDF, JSON) are missing in the lite mode.
+
+Simply go to [Releases](https://github.com/SlapBot/powir/releases) and pick the latest version to download.
+
+Download Latest Version: [Powir v1](https://github.com/SlapBot/powir/releases/download/1.0/powir.1.0.0.exe): **Please take a note below before downloading the app**
 
 
 ## Features
@@ -106,17 +123,14 @@ It provides you with various information and statistics about the current and ov
 
 ![](demos/processed-screenshots/recent-usage.png)
 
-## Installation
+## Installation Methods
 
-Installation is as quick as simply downloading the executable and running it. 
-The App is completely portable meaning you don't have to go through an installation wizard, 
-and it can be copied from system to system seamlessly.
+### Desktop App (Main Mode)
 
-Simply go to [Releases](https://github.com/SlapBot/powir/releases) and pick the latest version to download.
+- Simply go to [Releases](https://github.com/SlapBot/powir/releases) and pick the latest version to download.
+- Download Current Latest Version: [Powir v1](https://github.com/SlapBot/powir/releases/download/1.0/powir.1.0.0.exe): **Please take a note below before downloading the app**
 
-Download Latest Version: [Powir v1](https://github.com/SlapBot/powir/releases/download/1.0/powir.1.0.0.exe): **Please take a note below before downloading the app**
-
-### Browser And Windows Defender Warnings
+#### Browser And Windows Defender Warnings
 
 <strong>Note: </strong>
 Since the application isn't code signed yet ([because all of the certificates require annual fee payment regardless of whether you're non-profit or open-source](https://stackoverflow.com/questions/1177552/code-signing-certificate-for-open-source-projects)). Please refer to the issue: [#1](https://github.com/SlapBot/powir/issues/1), Both (Browser & Windows Defender will raise warnings suggesting that app is not protected). 
@@ -131,6 +145,15 @@ If you're someone who has an experience around self signing certificates with Wi
 
 ---
 
+### Browser Window (Lite Mode)
+
+#### Only one time setup
+- Ensure you have node and npm installed using commands: `node -v` and `npm -v` respectively, else install it from here (installer contains both node and npm): [NodeJS](https://nodejs.org/en/download/)
+- Clone the repository using: `git clone https://github.com/SlapBot/powir.git` and cd into the folder: `cd powir`
+- Run `npm install --production` to install dependencies
+
+#### Anytime
+- Now simply run `npm run lite-mode` whenever you want from the directory and it will open up the dashboard allowing you to monitor and analyze power states.
 
 ## FAQs
 
