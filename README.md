@@ -41,6 +41,7 @@
 * [Installation Methods](#installation-methods)
   * [Desktop App (Main Mode)](#desktop-app-main-mode)
     * [Browser And Windows Defender Warnings](#browser-and-windows-defender-warnings)
+    * [Solution](#solution)  
   * [Browser Window (Lite Mode)](#browser-window-lite-mode)
 * [FAQs](#faqs)
 * [Developer](#developer)
@@ -131,9 +132,13 @@ and it can be copied from system to system seamlessly without any dependencies o
 Since the application isn't code signed yet ([because all of the certificates require annual fee payment regardless of whether you're non-profit or open-source](https://stackoverflow.com/questions/1177552/code-signing-certificate-for-open-source-projects)). Please refer to the issue: [#1](https://github.com/SlapBot/powir/issues/1), Both (Browser & Windows Defender will raise warnings suggesting that app is not protected). 
 
 This doesn't mean that application 
-is inherently unsafe <strong>infact entire source code is open</strong> and you can build your own distribution following [Build](#build) section but its due to the paperwork and money involved in getting the certificates to sign the applications which can cost as much as $699 a year.
+is inherently unsafe <strong>infact entire source code is open</strong> and you can build your own distribution following [Build](#build) section but its due to the paperwork and money involved in getting the certificates to sign the applications [which can cost as much as $699 a year or more](https://stackoverflow.com/a/58559506/6303162).
 
-If you're someone who has an experience around self signing certificates with Windows based builds which result in bypassing these warnings, kindly reply in the above linked thread :) For now the solution is to simply ignore the warnings as such: 
+If you're someone who has an experience around self signing certificates with Windows based builds which result in bypassing these warnings, kindly reply in the given thread [#1](https://github.com/SlapBot/powir/issues/1) :)
+
+#### Solution
+
+For now the solution is to simply ignore the warnings as shown below and always download the application from this [repository](https://github.com/SlapBot/powir) only: 
 
 ![](demos/processed-screenshots/browser-warning.png)
 ![](demos/gifs/windows-defender-warnings.gif)
@@ -142,12 +147,30 @@ If you're someone who has an experience around self signing certificates with Wi
 
 ### Browser Window (Lite Mode)
 
+Open up the terminal (for non-developers: thats Command Promopt [cmd.exe]) and follow these instructions:
+
 #### Only one time setup
-- Ensure you have node and npm installed using commands: `node -v` and `npm -v` respectively, else install it from here (installer contains both node and npm): [NodeJS](https://nodejs.org/en/download/)
+
+Commands (copy-paste):
+```bash
+git clone https://github.com/SlapBot/powir.git
+cd powir
+npm install --production
+```
+
+Explanation:
+- Ensure you have git, node and npm installed using commands: `git --version`, `node -v` and `npm -v` respectively, else install it from here: [Git](https://git-scm.com/downloads) and [NodeJS](https://nodejs.org/en/download/) (installer contains both node and npm)
 - Clone the repository using: `git clone https://github.com/SlapBot/powir.git` and cd into the folder: `cd powir`
 - Run `npm install --production` to install dependencies
 
 #### Anytime
+
+Command (copy-paste)
+```bash
+npm run lite-mode
+```
+
+Explanation:
 - Now simply run `npm run lite-mode` whenever you want from the directory, and it will open up the dashboard allowing you to monitor and analyze power states.
 
 ## FAQs
@@ -176,6 +199,7 @@ No, Powir will never share your data anywhere outside your local system, the ent
 If you're looking to build it from the source or inspect the app, its extremely simply and you only have to follow few instructions as listed below:
 
 ### Prerequisites
+- Git
 - Node
 - NPM
 
@@ -190,6 +214,7 @@ If you're looking to build it from the source or inspect the app, its extremely 
 
 ### Usage
 
+#### Electron App
 - Run these two commands in two separate sessions when you are developing in order to use HMR (hot module reloading):
     - Run react server: `npm run react-start`
     - Run electron app: `npm run electron-start`
@@ -199,6 +224,12 @@ If you're looking to build it from the source or inspect the app, its extremely 
 - Any of the changes you make at src directory will reflect instantly in the app.
 - Any of the changes made for server requires the app to be restarted using: `npm run electron-start`
 
+#### Browser Window App
+- Run `npm run lite-mode` which opens up a tab in your default browser again with HMR enabled.
+- Entrypoint of the browser window app is at`public/browser.js`.
+- Everything related to rendering is done at: `src` directory.
+- Any of the changes you make at src directory will reflect instantly in the app.
+- Any of the changes made for server requires the app to be restarted using: `npm run lite-mode`
 
 ## Contributing
 
