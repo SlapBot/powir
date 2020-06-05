@@ -79,13 +79,15 @@ function AboutWindow() {
                                 <div className="p-3">
                                     <p>Hey there! I'm
                                         <button
-                                            className='clean-button ml-1 underline'
-                                            onClick={() => openExternalLink('https://twitter.com/ugupta41')}>
-                                            Ujjwal
-                                        </button> who goes around with the name Slapbot in open source communities,
+                                            className='clean-button ml-1 underline mb-0'
+                                            onClick={() => openExternalLink('https://slapbot.me/')}>
+                                            Ujjwal</button> who goes around with the name Slapbot in open source communities,
                                         You'd often find me blabbering my completely biased opinions in /r/soccer
                                         or busy building new things.</p>
-                                    <p className='mt-1'>I'm most accessible via Twitter and tend to update about whatever
+                                    <p className='mt-1'>I'm most accessible via <button
+                                        className='clean-button ml-1 underline mb-0'
+                                        onClick={() => openExternalLink('https://twitter.com/ugupta41')}>
+                                        Twitter</button> and tend to update about whatever
                                         I'm working there, so feel free to follow or send a dm there. :) </p>
                                 </div>
 

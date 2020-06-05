@@ -27,6 +27,7 @@ function Broadcast() {
         }
     }
     useEffect(() => {
+        console.log("Current Version Running: " + config.version)
         getUpdates(setValues)
     }, [])
 

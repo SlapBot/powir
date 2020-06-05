@@ -3,6 +3,9 @@ import openExternalLink from "./utils/openExternalLink";
 import config from "./utils/config";
 
 function Navbar() {
+    function formatVersion(version) {
+        return  version.split(".").splice(0, 2).join(".")
+    }
     return (
         <div className="custom-border border-bottom">
             <div className="mb-2">
@@ -15,7 +18,7 @@ function Navbar() {
                             <h4>
                                 Powir
                             </h4>
-                            <span className="badge ml-1 mt-0-3 text-sm">v{config.version}</span>
+                            <span className="badge ml-1 mt-0-3 text-sm">v{formatVersion(config.version)}</span>
                         </div>
                         <h5 className="content-center ml-2">Monitoring & Analyzing Your Battery!</h5>
                     </div>
