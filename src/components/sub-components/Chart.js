@@ -31,6 +31,9 @@ function Chart(props) {
                 if (metaData.type === 'cumulativePie') {
                     return <Pie data={data} />
                 }
+                else if(metaData.type === 'cumulativeActiveSuspended') {
+                    return <Pie data={data}/>
+                }
                 else if (metaData.type === 'dailyBar') {
                     return <Bar data={data} options={options}/>
                 }

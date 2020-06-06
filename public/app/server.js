@@ -7,7 +7,9 @@ const logger = require('electron-log')
 
 
 function getBatteryReport() {
-    return scraper.generateBatteryReport('powercfg /batteryreport')
+    return scraper.generateBatteryReport(
+        'powercfg batteryreport output "public/battery-report.html" duration 5'
+    )
         .catch(error => log('error', error))
         .then(_ => scraper.getHtmlFromFile('battery-report.html'))
         .catch(error => log(error))

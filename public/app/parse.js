@@ -10,7 +10,6 @@ function parseUsageInfo(data, colElements, cleanerFn) {
                 break
             case 2:
                 // Source: AC/Battery
-                // TODO: there seems to be a bug over here
                 if (formattedElement === "") {
                     return data[data.length-1][colIndex] + formattedElement
                 }

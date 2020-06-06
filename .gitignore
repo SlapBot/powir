@@ -25,6 +25,7 @@ yarn-error.log*
 .idea/
 dist/
 battery-report.html
+battery-report.xml
 output.json
 update.json
 

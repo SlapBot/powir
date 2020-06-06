@@ -4,7 +4,9 @@ const broadcastUrl = 'https://gist.github.com/SlapBot/4b093f88d97522e22205ae9c9d
 
 
 function getBatteryReport() {
-    return scraper.generateBatteryReport('powercfg /batteryreport /output "public/battery-report.html"')
+    return scraper.generateBatteryReport(
+        'powercfg batteryreport output "public/battery-report.html" duration 5'
+    )
         .catch(error => console.log('error', error))
         .then(_ => scraper.getHtmlFromFile('public/battery-report.html'))
         .catch(error => console.log(error))
