@@ -1,4 +1,4 @@
-import {groupBy, meanBy, sortBy} from 'lodash'
+import {groupBy, sortBy} from 'lodash'
 
 function createData(info, type, metaData) {
     switch (type) {
@@ -90,66 +90,84 @@ function createBatteryLifeHistoryData(info) {
          * is not an int, then really you should average the two elements on either
          * side to find q1.
          */
-        let q1 = values[Math.floor((values.length / 4))];
+        let q1 = values[Math.floor((values.length / 4))]
         // Likewise for q3.
-        let q3 = values[Math.ceil((values.length * (3 / 4)))];
+        let q3 = values[Math.ceil((values.length * (3 / 4)))]
         let iqr = q3 - q1;
 
         // Then find min and max values
         let maxValue = q3 + iqr*1.5;
 
-        // Then filter anything beyond or beneath these values.
-        return array.filter(function(x) {
-            return (x <= maxValue)
-        });
+        // Then reduce anything beyond or beneath these values.
+        return array.reduce((data, item, index) => {
+            if (item <= maxValue) {
+                data.indexes.push(index)
+                data.data.push(item)
+                return data
+            }
+            return data
+        }, {
+            data: [],
+            indexes: []
+        })
     }
 
-    function filterDataset(value, index) {
-        let activeDatasetRowAverage = meanBy(value, index)
+    function averageDatasetByMonth(value, index) {
         return value.reduce((data, element) => {
-            let value = element[index]
-            if (data / activeDatasetRowAverage < 5) {
-                data += value
-            }
+            data += element[index]
             return data
         }, 0) / value.length
     }
 
-    let formattedInfo = groupBy(info.data.map(item => {
-        return [
+    let formattedInfo = groupBy(info.data.reduce((data, item) => {
+        if (item[1] === "0:00:00" || item[3] === "0:00:00") {
+            return data
+        }
+        data.push([
             chooseDate(item[0]),
             Number(item[1].split(":")[0])*60 + Number(item[1].split(":")[1]),
             Number(item[3].split(":")[0])*60 + Number(item[3].split(":")[1]),
-        ]
-    }), 0)
+        ])
+        return data
+    }, []), 0)
 
     let activeDataset = []
     let designDataset = []
 
     for (let [, value] of Object.entries(formattedInfo)) {
-        activeDataset.push(filterDataset(value, 1))
-        designDataset.push(filterDataset(value, 2))
+        activeDataset.push(averageDatasetByMonth(value, 1))
+        designDataset.push(averageDatasetByMonth(value, 2))
     }
+    let filteredDataset = filterOutliers(activeDataset)
+    let filteredActiveDataset = filterOutliers(activeDataset).data
+    let filteredDesignDataset = designDataset.filter((item, index) => filteredDataset.indexes.includes(index))
+    let labelsDataset = Object.keys(formattedInfo).reduce((data, item, index) => {
+        if (filteredDataset.indexes.includes(index)) {
+            data.push(item.slice(0, 4) + "/" + item.slice(4, 6))
+            return data
+        }
+        return data
+    }, [])
 
     return {
-        labels: Object.keys(formattedInfo),
+        labels: labelsDataset,
         datasets: [{
             label: info.keys[1],
             backgroundColor: 'red',
             borderColor: 'red',
-            data: filterOutliers(activeDataset),
+            data: filteredActiveDataset,
             fill: false,
         }, {
             label: info.keys[3],
             backgroundColor: 'blue',
             borderColor: 'blue',
-            data: filterOutliers(designDataset),
+            data: filteredDesignDataset,
             fill: false,
         }]
     }
 }
 
-function getGroupedPowerUsageInfoData(info, filterConditional) {
+function getGroupedPowerUsageInfoData(info) {
     let formattedData = info.data.reduce((data, item, index) => {
         function getDuration(pastItem, currentItem, futureItem) {
             function getDateObject(dateString) {
@@ -199,9 +217,6 @@ function getGroupedPowerUsageInfoData(info, filterConditional) {
                 ]
             }
         }
-        if (filterConditional(item)) {
-            return data
-        }
         switch (index) {
             case info.data.length-1:
                 return data
@@ -247,9 +262,7 @@ function formatPowerUsageInfoTime(minutes) {
 }
 
 function createCumulativePiePowerUsageInfoData(info) {
-    let groupData = getGroupedPowerUsageInfoData(info, function (item) {
-        return false
-    })
+    let groupData = getGroupedPowerUsageInfoData(info)
     let powerUsageDataset = getDailySumGroupedPowerUsageInfoData(
         groupData,
         (item) => item[3].toLowerCase() === 'suspended',
@@ -276,9 +289,7 @@ function createCumulativePiePowerUsageInfoData(info) {
 }
 
 function createBarPowerUsageInfoData(info) {
-    let groupData = getGroupedPowerUsageInfoData(info, function (item) {
-        return false
-    })
+    let groupData = getGroupedPowerUsageInfoData(info)
     let powerUsageDataset = getDailySumGroupedPowerUsageInfoData(
         groupData,
         (item) => item[3].toLowerCase() === 'suspended',
@@ -286,7 +297,7 @@ function createBarPowerUsageInfoData(info) {
     )
     let powerUsageActiveSuspendedDataset = getDailySumGroupedPowerUsageInfoData(
         groupData,
-        (item) => false,
+        (_) => false,
         (item) => item[3].toLowerCase() === 'active'
     )
 
@@ -321,12 +332,10 @@ function createBarPowerUsageInfoData(info) {
 }
 
 function createActiveSuspendedPiePowerUsageInfoData(info) {
-    let groupData = getGroupedPowerUsageInfoData(info, function(_) {
-        return false
-    })
+    let groupData = getGroupedPowerUsageInfoData(info)
     let powerUsageActiveSuspendedDataset = getDailySumGroupedPowerUsageInfoData(
         groupData,
-        (item) => false,
+        (_) => false,
         (item) => item[3].toLowerCase() === 'active'
     )
     let cumulativePowerUsageActiveSuspendedDataset = powerUsageActiveSuspendedDataset.reduce((data, item) => {
@@ -353,7 +362,9 @@ function createLinePowerUsageInfoData(info) {
     let percentageDataset = info.data.reduce((data, item, index) => {
         let dateString = (date) => date.getMonth()+1 + "/" + date.getDate() + " " + date.getHours() + ":" + date.getMinutes()
         if (index > 1) {
-            if (item[item.length-2] === info.data[index-2][info.data[index-2].length-2]) {
+            let currentPercentage = item[item.length-2]
+            let lastPercentage = info.data[index-1][info.data[index-1].length-2]
+            if (currentPercentage === lastPercentage) {
                 return data
             }
         }

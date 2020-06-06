@@ -124,7 +124,7 @@ and it can be copied from system to system seamlessly without any dependencies o
 ### Desktop App (Main Mode)
 
 - Simply go to [Releases](https://github.com/SlapBot/powir/releases) and pick the latest version to download.
-- Download Current Latest Version (Powir v1): [Github](https://github.com/SlapBot/powir/releases/latest/download/powir.1.0.1.exe) or [GDrive](https://drive.google.com/drive/folders/1ntEjEenEzZXMP8L_nXNoHnIFqNSLpwD9): **Please take a note below before downloading the app**
+- Download Current Latest Version (Powir v1): [Github](https://github.com/SlapBot/powir/releases/latest/download/powir.1.0.2.exe) or [GDrive](https://drive.google.com/drive/folders/1ntEjEenEzZXMP8L_nXNoHnIFqNSLpwD9): **Please take a note below before downloading the app**
 
 #### Browser And Windows Defender Warnings
 

@@ -2,7 +2,29 @@ import React from "react";
 
 
 function RecentBatteryEstimate(props) {
-    function renderValue(value) {
+    function renderValue(formattedData, type) {
+        switch (type) {
+            case 'MINIMUM':
+                if (formattedData.minimum === Infinity) {
+                    return 'NONE'
+                }
+                return formatTime(formattedData.minimum)
+            case 'MAXIMUM':
+                if (formattedData.maximum === 0) {
+                    return 'NONE'
+                }
+                return formatTime(formattedData.maximum)
+            case 'AVERAGE':
+                if (formattedData.maximum === 0 || formattedData.minimum === Infinity) {
+                    return 'NONE'
+                }
+                return formatTime(formattedData.sum/formattedData.count)
+            default:
+                return 'NONE'
+        }
+    }
+
+    function formatTime(value) {
         let hours = Math.floor(value / 60)
         let minutes = Math.floor(value % 60)
         let seconds = Math.floor((value - Math.floor(value)) * 100)
@@ -26,7 +48,7 @@ function RecentBatteryEstimate(props) {
         data.count += 1
         return data
     }, {
-        minimum: 9999999999,
+        minimum: Infinity,
         maximum: 0,
         sum: 0,
         count: 0
@@ -43,15 +65,15 @@ function RecentBatteryEstimate(props) {
             <div className="flex">
                 <div className="mr-1 flex">
                     <h5 className="mr-1">Minimum: </h5>
-                    <span className="badge bg-red">{renderValue(formattedData.minimum)}</span>
+                    <span className="badge bg-red">{renderValue(formattedData, 'MINIMUM')}</span>
                 </div>
                 <div className="mr-1 flex">
                     <h5 className="mr-1">Maximum: </h5>
-                    <span className="badge bg-blue">{renderValue(formattedData.maximum)}</span>
+                    <span className="badge bg-blue">{renderValue(formattedData, 'MAXIMUM')}</span>
                 </div>
                 <div className="flex">
                     <h5 className="mr-1">Average: </h5>
-                    <span className="badge success">{renderValue(formattedData.sum/formattedData.count)}</span>
+                    <span className="badge success">{renderValue(formattedData, 'AVERAGE')}</span>
                 </div>
             </div>
         </div>

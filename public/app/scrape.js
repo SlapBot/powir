@@ -73,9 +73,9 @@ function getNote(soup, index) {
         case 1:
             return "Information about each currently installed battery"
         case 2:
-            return "Power states over the last 3 days"
+            return "Power states over the last few days"
         case 3:
-            return "Battery drains over the last 3 days"
+            return "Battery drains over the last few days"
         case 4:
             return "History of system usage on AC and battery"
         case 5:
