@@ -1,6 +1,6 @@
 const scraper = require('./app/scrape')
 const axios = require('axios');
-const broadcastUrl = 'https://gist.github.com/SlapBot/4b093f88d97522e22205ae9c9d0dea02/raw/update.json'
+const broadcastUrl = 'https://gist.github.com/SlapBot/4b093f88d97522e22205ae9c9d0dea02/raw/'
 
 
 function getBatteryReport() {

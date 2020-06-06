@@ -10,7 +10,8 @@ function Broadcast() {
             "text": ""
         },
         "update": {
-            'version': config.version,
+            "status": false,
+            "version": config.version,
             "text": ""
         },
     })
@@ -22,7 +23,7 @@ function Broadcast() {
         if (data.personal.status) {
             setShouldRenderPersonal(true)
         }
-        if (data.update.version !== config.version) {
+        if (data.update.status && data.update.version !== config.version) {
             setShouldRenderUpdate(true)
         }
     }

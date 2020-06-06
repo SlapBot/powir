@@ -11,7 +11,7 @@ export function getReport(callbackFunction) {
 }
 
 export function getUpdates(callbackFunction) {
-    const broadcastUrl = config.liteMode ? 'update.json' : 'https://gist.github.com/SlapBot/4b093f88d97522e22205ae9c9d0dea02/raw/update.json'
+    const broadcastUrl = config.liteMode ? 'update.json' : 'https://gist.github.com/SlapBot/4b093f88d97522e22205ae9c9d0dea02/raw/'
     if (config.liteMode) {
         return import('./liteMode').then(module => module.getResource(broadcastUrl, callbackFunction))
     }
