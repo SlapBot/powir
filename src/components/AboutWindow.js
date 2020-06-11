@@ -74,7 +74,7 @@ function AboutWindow() {
                             <div>
                                 <div className="flex">
                                     <img className="no-border mr-2" src="assets/images/so-so.png" alt='so-so'/>
-                                    <h3>Who build it?</h3>
+                                    <h3>Who built it?</h3>
                                 </div>
                                 <div className="p-3">
                                     <p>Hey there! I'm
