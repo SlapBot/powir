@@ -10,7 +10,7 @@
     <a href="https://powir.slapbot.me"><strong>Explore the website »</strong></a>
     <br />
     <br />
-    <a href="https://join.slack.com/t/powir/shared_invite/zt-ezy7sf5d-Tt1MmP_bcf_gdGLEJSEfzw">Join Slack</a>
+    <a href="https://join.slack.com/t/slapbotworkspace/shared_invite/zt-f1ywjyyq-6NT2jF23jjw5fS8oY5gAsQ">Join Slack</a>
     ·
     <a href="https://github.com/slapbot/powir/issues">Report Bug</a>
     ·
