@@ -68,11 +68,17 @@ It provides you with various information and statistics about the current and ov
 
 There are two ways to install powir:
 
-1. [Desktop App (Main Mode)](#desktop-app-main-mode): Installation is as quick as simply downloading the executable and running it.
+- [Desktop App (Main Mode)](#desktop-app-main-mode): Installation is as quick as simply downloading the executable and running it.
 The App is completely portable meaning you don't have to go through an installation wizard, 
 and it can be copied from system to system seamlessly without any dependencies or extra files needed. **Recommended**
+  - Terminal: Simply download the binary and run it:
+  ```bash
+  curl -L https://github.com/SlapBot/powir/releases/download/v1.0.2/powir.1.0.2.exe
+  ./powir.1.0.2.exe
+  ```
+  - Double Click: Again [download](#desktop-app-main-mode) the binary and run it but please read this [note](#browser-and-windows-defender-warnings)
 
-2. [Browser Window (Lite Mode)](#browser-window-lite-mode): Installation requires few pre-requisites (node & npm) and firing a command from the command prompt which opens up a tab in your default browser serving file via local server. Actions (Export PDF, JSON) are missing in the lite mode.
+- [Browser Window (Lite Mode)](#browser-window-lite-mode): Installation requires few pre-requisites (node & npm) and firing a command from the command prompt which opens up a tab in your default browser serving file via local server. Actions (Export PDF, JSON) are missing in the lite mode.
 
 ## Features
 ![](demos/processed-screenshots/about.png)
