@@ -73,8 +73,8 @@ The App is completely portable meaning you don't have to go through an installat
 and it can be copied from system to system seamlessly without any dependencies or extra files needed. **Recommended**
   - Terminal: Simply download the binary and run it:
   ```bash
-  curl -L https://github.com/SlapBot/powir/releases/download/v1.0.2/powir.1.0.2.exe
-  ./powir.1.0.2.exe
+  curl -L https://github.com/SlapBot/powir/releases/download/v1.0.2/powir.1.0.2.exe --output powir.exe
+  ./powir
   ```
   - Double Click: Again [download](#desktop-app-main-mode) the binary and run it but please read this [note](#browser-and-windows-defender-warnings)
 
