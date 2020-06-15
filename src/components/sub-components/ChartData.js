@@ -81,7 +81,10 @@ function createBatteryLifeHistoryData(info) {
         // Then sort
         // noinspection JSValidateTypes
         if (array.length < 4) {
-            return array
+            return {
+                data: array,
+                indexes: []
+            }
         }
         // noinspection JSValidateTypes
         let values = sortBy(array)

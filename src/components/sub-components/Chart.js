@@ -3,6 +3,13 @@ import React from "react";
 import { createData } from "./ChartData";
 
 function Chart(props) {
+    function renderChart(info, type, metaData) {
+        try {
+            return getChart(info, type, metaData)
+        } catch (e) {
+            console.log(e)
+        }
+    }
     function getChart(info, type, metaData) {
         let data = createData(info, type, metaData)
         let options = {
@@ -54,7 +61,7 @@ function Chart(props) {
                     <span className="text-xs content-center">{props.info.note}</span>
                 </div>
             </div>
-            {getChart(props.info, props.info.name, props.metaData)}
+            {renderChart(props.info, props.info.name, props.metaData)}
         </div>
     )
 }
