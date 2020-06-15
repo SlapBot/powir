@@ -73,12 +73,12 @@ The App is completely portable meaning you don't have to go through an installat
 and it can be copied from system to system seamlessly without any dependencies or extra files needed. **Recommended**
   - Terminal: Simply download the binary and run it:
   ```bash
-  curl -L https://github.com/SlapBot/powir/releases/download/v1.0.2/powir.1.0.2.exe --output powir.exe
+  curl -L https://github.com/SlapBot/powir/releases/download/v1.0.3/powir.1.0.3.exe --output powir.exe
   ./powir
   ```
   - Double Click: Again [download](#desktop-app-main-mode) the binary and run it but please read this [note](#browser-and-windows-defender-warnings)
 
-- [Browser Window (Lite Mode)](#browser-window-lite-mode): Installation requires few pre-requisites (node & npm) and firing a command from the command prompt which opens up a tab in your default browser serving file via local server. Actions (Export PDF, JSON) are missing in the lite mode.
+- [Browser Window (Lite Mode)](#browser-window-lite-mode): Installation requires few pre-requisites (node & npm) and firing a command from the command prompt which opens up a tab in your default browser serving file via a local server. Actions (Export PDF, JSON) are missing in the lite mode.
 
 ## Features
 ![](demos/processed-screenshots/about.png)
@@ -130,7 +130,7 @@ and it can be copied from system to system seamlessly without any dependencies o
 ### Desktop App (Main Mode)
 
 - Simply go to [Releases](https://github.com/SlapBot/powir/releases) and pick the latest version to download.
-- Download Current Latest Version (Powir v1): [Github](https://github.com/SlapBot/powir/releases/latest/download/powir.1.0.2.exe) or [GDrive](https://drive.google.com/drive/folders/1ntEjEenEzZXMP8L_nXNoHnIFqNSLpwD9): **Please take a note below before downloading the app**
+- Download Current Latest Version (Powir v1): [Github](https://github.com/SlapBot/powir/releases/latest/download/powir.1.0.3.exe) or [GDrive](https://drive.google.com/drive/folders/1ntEjEenEzZXMP8L_nXNoHnIFqNSLpwD9): **Please take a note below before downloading the app**
 
 #### Browser And Windows Defender Warnings
 
@@ -138,9 +138,9 @@ and it can be copied from system to system seamlessly without any dependencies o
 Since the application isn't code signed yet ([because all of the certificates require annual fee payment regardless of whether you're non-profit or open-source](https://stackoverflow.com/questions/1177552/code-signing-certificate-for-open-source-projects)). Please refer to the issue: [#1](https://github.com/SlapBot/powir/issues/1), Both (Browser & Windows Defender will raise warnings suggesting that app is not protected). 
 
 This doesn't mean that application 
-is inherently unsafe <strong>infact entire source code is open</strong> and you can build your own distribution following [Build](#build) section but its due to the paperwork and money involved in getting the certificates to sign the applications [which can cost as much as $699 a year or more](https://stackoverflow.com/a/58559506/6303162).
+is inherently unsafe <strong>in fact entire source code is open</strong>, and you can build your own distribution following [Build](#build) section but its due to the paperwork and money involved in getting the certificates to sign the applications [which can cost as much as $699 a year or more](https://stackoverflow.com/a/58559506/6303162).
 
-If you're someone who has an experience around self signing certificates with Windows based builds which result in bypassing these warnings, kindly reply in the given thread [#1](https://github.com/SlapBot/powir/issues/1) :)
+If you are someone who has an experience around self signing certificates with Windows based builds which result in bypassing these warnings, kindly reply in the given thread [#1](https://github.com/SlapBot/powir/issues/1) :)
 
 #### Solution
 
@@ -153,7 +153,7 @@ For now the solution is to simply ignore the warnings as shown below and always 
 
 ### Browser Window (Lite Mode)
 
-Open up the terminal (for non-developers: thats Command Promopt [cmd.exe]) and follow these instructions:
+Open up the terminal (for non-developers: that is Command Prompt [cmd.exe]) and follow these instructions:
 
 #### Only one time setup
 
@@ -197,7 +197,7 @@ Powir runs as an electron app (chromium web engine embedded) while using React t
 
 <strong>Does it share my data anywhere?</strong>
 
-No, Powir will never share your data anywhere outside your local system, the entire source code of the app is online for anyone to check. Infact, it never makes any request to a server since there is none. Its simply a client sided app.
+No, Powir will never share your data anywhere outside your local system, the entire source code of the app is online for anyone to check. In fact, it never makes any request to a server since there is none. Its simply a client sided app.
 
 <hr>
 
