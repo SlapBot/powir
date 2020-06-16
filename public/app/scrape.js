@@ -189,44 +189,54 @@ function getTabulatedData(data, rInfo) {
     return data
 }
 
+function computeInfo(soup, infoName, index, filterType) {
+    let info = {
+        'name': infoName,
+        'note': "",
+        'keys': [],
+        'data': []
+    }
+    info.note = getNote(soup, index)
+    let rawInfo = soup[index].findAll('tr')
+    switch (filterType) {
+        case 'KEY_VALUE':
+            [info.keys, info.data] = rawInfo.reduce(getKeyValueInfo, [[], []]);
+            break
+        case 'TABULATED_SIMPLE':
+            info.keys = getTabulatedKeys({name: infoName}, rawInfo, 0)
+            info.data = rawInfo.slice(1).reduce(getTabulatedData, {name: infoName, data: []}).data
+            break
+        case 'TABULATED_COMPLEX':
+            info.keys = getTabulatedKeys({name: infoName}, rawInfo, 1)
+            info.data = rawInfo.slice(2).reduce(getTabulatedData, {name: infoName, data: []}).data
+            break
+        case 'TABULATED_OVERALL':
+            // hardcoded keys to ensure no dependency over each table scrape to ensure concurrency.
+            info.keys = ["PERIOD",  "ACTIVE (AT FULL CHARGE)",  "CONNECTED STANDBY (AT FULL CHARGE)",
+                "ACTIVE (AT DESIGN CAPACITY)",  "CONNECTED STANDBY (AT DESIGN CAPACITY)"
+            ]
+            info.data = rawInfo.reduce(getTabulatedData, {name: infoName, data: []}).data
+            break
+        default:
+            return info
+    }
+    return info
+}
 
 function getInfo(soup, infoName, index, filterType) {
     return new Promise((resolve, reject) => {
         // noinspection JSUnresolvedFunction
-        let rawInfo = soup[index].findAll('tr')
-        let info = {
-            'name': infoName,
-            'note': "",
-            'keys': [],
-            'data': []
-        };
-        switch (filterType) {
-            case 'KEY_VALUE':
-                [info.keys, info.data] = rawInfo.reduce(getKeyValueInfo, [[], []]);
-                info.note = getNote(soup, index)
-                break
-            case 'TABULATED_SIMPLE':
-                info.keys = getTabulatedKeys({name: infoName}, rawInfo, 0)
-                info.data = rawInfo.slice(1).reduce(getTabulatedData, {name: infoName, data: []}).data
-                info.note = getNote(soup, index)
-                break
-            case 'TABULATED_COMPLEX':
-                info.keys = getTabulatedKeys({name: infoName}, rawInfo, 1)
-                info.data = rawInfo.slice(2).reduce(getTabulatedData, {name: infoName, data: []}).data
-                info.note = getNote(soup, index)
-                break
-            case 'TABULATED_OVERALL':
-                // hardcoded keys to ensure no dependency over each table scrape to ensure concurrency.
-                info.keys = ["PERIOD",  "ACTIVE (AT FULL CHARGE)",  "CONNECTED STANDBY (AT FULL CHARGE)",
-                    "ACTIVE (AT DESIGN CAPACITY)",  "CONNECTED STANDBY (AT DESIGN CAPACITY)"
-                ]
-                info.data = rawInfo.reduce(getTabulatedData, {name: infoName, data: []}).data
-                info.note = getNote(soup, index)
-                break
-            default:
-                reject(info)
+        try {
+            let info = computeInfo(soup, infoName, index, filterType)
+            resolve(info)
+        } catch (e) {
+            resolve({
+                'name': infoName,
+                'note': getNote(soup, index),
+                'keys': [],
+                'data': []
+            })
         }
-        resolve(info)
     })
 }
 
